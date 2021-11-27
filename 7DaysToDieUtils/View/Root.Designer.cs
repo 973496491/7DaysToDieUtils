@@ -29,35 +29,22 @@ namespace _7DaysToDieUtils
         /// </summary>
         private void InitializeComponent()
         {
-            this.LoadingImage_Box = new System.Windows.Forms.PictureBox();
             this.SaveOnlyDataBtn = new System.Windows.Forms.PictureBox();
             this.SaveAllDataBtn = new System.Windows.Forms.PictureBox();
             this.Other_Btn = new System.Windows.Forms.PictureBox();
             this.UnInstAll_Btn = new System.Windows.Forms.PictureBox();
             this.Install_Other = new System.Windows.Forms.PictureBox();
             this.InstallJiuRi_Btn = new System.Windows.Forms.PictureBox();
-            this.Loading_Panel = new System.Windows.Forms.Panel();
             this.ReductionAllSave_Btn = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.LoadingImage_Box)).BeginInit();
+            this.Loading_Progress = new Sunny.UI.UIProgressIndicator();
             ((System.ComponentModel.ISupportInitialize)(this.SaveOnlyDataBtn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SaveAllDataBtn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Other_Btn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UnInstAll_Btn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Install_Other)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstallJiuRi_Btn)).BeginInit();
-            this.Loading_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReductionAllSave_Btn)).BeginInit();
             this.SuspendLayout();
-            // 
-            // LoadingImage_Box
-            // 
-            this.LoadingImage_Box.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_Loading;
-            this.LoadingImage_Box.Location = new System.Drawing.Point(0, 0);
-            this.LoadingImage_Box.Name = "LoadingImage_Box";
-            this.LoadingImage_Box.Size = new System.Drawing.Size(162, 76);
-            this.LoadingImage_Box.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.LoadingImage_Box.TabIndex = 0;
-            this.LoadingImage_Box.TabStop = false;
             // 
             // SaveOnlyDataBtn
             // 
@@ -136,16 +123,6 @@ namespace _7DaysToDieUtils
             this.InstallJiuRi_Btn.TabStop = false;
             this.InstallJiuRi_Btn.Click += new System.EventHandler(this.InstallJiuRi_Btn_Click);
             // 
-            // Loading_Panel
-            // 
-            this.Loading_Panel.BackColor = System.Drawing.Color.Transparent;
-            this.Loading_Panel.Controls.Add(this.LoadingImage_Box);
-            this.Loading_Panel.Location = new System.Drawing.Point(425, 278);
-            this.Loading_Panel.Name = "Loading_Panel";
-            this.Loading_Panel.Size = new System.Drawing.Size(162, 76);
-            this.Loading_Panel.TabIndex = 2;
-            this.Loading_Panel.Visible = false;
-            // 
             // ReductionAllSave_Btn
             // 
             this.ReductionAllSave_Btn.BackColor = System.Drawing.Color.Transparent;
@@ -159,52 +136,62 @@ namespace _7DaysToDieUtils
             this.ReductionAllSave_Btn.TabStop = false;
             this.ReductionAllSave_Btn.Click += new System.EventHandler(this.ReductionAllSave_Btn_Click);
             // 
+            // Loading_Progress
+            // 
+            this.Loading_Progress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Loading_Progress.BackColor = System.Drawing.Color.Transparent;
+            this.Loading_Progress.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Loading_Progress.IsScaled = false;
+            this.Loading_Progress.Location = new System.Drawing.Point(484, 290);
+            this.Loading_Progress.MinimumSize = new System.Drawing.Size(1, 1);
+            this.Loading_Progress.Name = "Loading_Progress";
+            this.Loading_Progress.Size = new System.Drawing.Size(76, 76);
+            this.Loading_Progress.TabIndex = 10;
+            this.Loading_Progress.Text = "uiProgressIndicator1";
+            this.Loading_Progress.Visible = false;
+            // 
             // Root
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackgroundImage = global::_7DaysToDieUtils.Properties.Resources.Icon_Background;
             this.ClientSize = new System.Drawing.Size(1008, 643);
+            this.Controls.Add(this.Loading_Progress);
             this.Controls.Add(this.ReductionAllSave_Btn);
-            this.Controls.Add(this.Loading_Panel);
             this.Controls.Add(this.InstallJiuRi_Btn);
             this.Controls.Add(this.Install_Other);
             this.Controls.Add(this.UnInstAll_Btn);
             this.Controls.Add(this.Other_Btn);
             this.Controls.Add(this.SaveAllDataBtn);
             this.Controls.Add(this.SaveOnlyDataBtn);
-            this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Root";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "七日杀工具";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Root_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.LoadingImage_Box)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SaveOnlyDataBtn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SaveAllDataBtn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Other_Btn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UnInstAll_Btn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Install_Other)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstallJiuRi_Btn)).EndInit();
-            this.Loading_Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ReductionAllSave_Btn)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.PictureBox LoadingImage_Box;
         private System.Windows.Forms.PictureBox SaveOnlyDataBtn;
         private System.Windows.Forms.PictureBox SaveAllDataBtn;
         private System.Windows.Forms.PictureBox Other_Btn;
         private System.Windows.Forms.PictureBox UnInstAll_Btn;
         private System.Windows.Forms.PictureBox Install_Other;
         private System.Windows.Forms.PictureBox InstallJiuRi_Btn;
-        private System.Windows.Forms.Panel Loading_Panel;
         private System.Windows.Forms.PictureBox ReductionAllSave_Btn;
+        private Sunny.UI.UIProgressIndicator Loading_Progress;
     }
 }
 

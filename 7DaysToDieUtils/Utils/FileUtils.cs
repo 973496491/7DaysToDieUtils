@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace _7DaysToDieUtils
@@ -8,17 +7,40 @@ namespace _7DaysToDieUtils
     class FileUtils
     {
         /// <summary>
+        /// 计算文件大小函数(保留两位小数),Size为字节大小
+        /// </summary>
+        /// <param name="size">初始文件大小</param>
+        /// <returns></returns>
+        public static string GetFileSize(long size)
+        {
+            var num = 1024.00; //byte
+
+            if (size < num)
+                return size + "B";
+            if (size < Math.Pow(num, 2))
+                return (size / num).ToString("f2") + "K"; //kb
+            if (size < Math.Pow(num, 3))
+                return (size / Math.Pow(num, 2)).ToString("f2") + "M"; //M
+            if (size < Math.Pow(num, 4))
+                return (size / Math.Pow(num, 3)).ToString("f2") + "G"; //G
+            return (size / Math.Pow(num, 4)).ToString("f2") + "T"; //T
+        }
+
+        /// <summary>
         /// 获取指定文件路径
         /// </summary>
         /// <returns></returns>
-        public static string GetSelectFilePath(string filter = "*.*")
+        public static string GetSelectFilePath(
+            string filter = "压缩包 (*.*)|*.zip;*.7z;*.rar",
+            string title = ""
+        )
         {
 
             OpenFileDialog dialog = new OpenFileDialog
             {
                 Multiselect = false,
-                Title = "请选择旧日支配者压缩包",
-                Filter = "压缩包 (*.*)|*.zip;*.7z;*.rar"
+                Title = title,
+                Filter = filter
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -74,6 +96,24 @@ namespace _7DaysToDieUtils
                 {
                     File.Copy(file, Path.Combine(di.FullName, Path.GetFileName(file)), true);
                 }
+            }
+        }
+
+        /// <summary>
+        /// 删除文件夹
+        /// </summary>
+        /// <param name="path"></param>
+        public static void DeleteDirectory(string path)
+        {
+            DirectoryInfo dir = new DirectoryInfo(path);
+            if (dir.Exists)
+            {
+                DirectoryInfo[] childs = dir.GetDirectories();
+                foreach (DirectoryInfo child in childs)
+                {
+                    child.Delete(true);
+                }
+                dir.Delete(true);
             }
         }
 

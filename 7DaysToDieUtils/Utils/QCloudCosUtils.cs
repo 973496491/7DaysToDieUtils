@@ -80,11 +80,12 @@ namespace _7DaysToDieUtils.Utils
         /// <summary>
         /// 查询储存列表
         /// </summary>
-        public ListBucket GetObjectList()
+        public ListBucket GetObjectList(string dir)
         {
             try
             {
                 GetBucketRequest request = new GetBucketRequest(BUCKET);
+                request.SetPrefix(dir);
                 //执行请求
                 GetBucketResult result = CosXml.GetBucket(request);
                 //bucket的相关信息
@@ -109,7 +110,12 @@ namespace _7DaysToDieUtils.Utils
         /// </summary>
         /// <param name="cosPath">对象在存储桶中的位置标识符，即称对象键</param>
         /// <param name="savePath">本地存储路径</param>
-        public async Task DownloadObjectAsync(string cosPath, string savePath, string fileName)
+        public async Task DownloadObjectAsync(
+            string cosPath, 
+            string savePath, 
+            string fileName,
+            Action<string> process
+        )
         {
             // 初始化 TransferConfig
             TransferConfig transferConfig = new TransferConfig();
@@ -124,7 +130,7 @@ namespace _7DaysToDieUtils.Utils
             {
                 progressCallback = delegate (long completed, long total)
                 {
-                    Console.WriteLine(String.Format("progress = {0:##.##}%", completed * 100.0 / total));
+                    process((int)(completed * 100.0 / total) + "%");
                 }
             };
 

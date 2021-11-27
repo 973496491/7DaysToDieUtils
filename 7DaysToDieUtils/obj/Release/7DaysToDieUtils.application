@@ -7,14 +7,14 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="7DaysToDieUtils.exe.manifest" size="5718">
+    <dependentAssembly dependencyType="install" codebase="7DaysToDieUtils.exe.manifest" size="7699">
       <assemblyIdentity name="7DaysToDieUtils.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="zh" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>x1jhcVyYb099VYEcEdLF+Mn+COj02+SkVOJocVdHXTs=</dsig:DigestValue>
+        <dsig:DigestValue>OcIF4JBQXkFCcQOhJUpfMBxC+l/TR74ji1bvWEtuu1g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

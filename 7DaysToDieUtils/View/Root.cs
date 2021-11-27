@@ -1,16 +1,17 @@
 ﻿using _7DaysToDieUtils.Entity;
 using _7DaysToDieUtils.Utils;
+using _7DaysToDieUtils.View;
+using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Resources;
 using System.Threading;
 using System.Windows.Forms;
 
 namespace _7DaysToDieUtils
 {
-    public partial class Root : Form
+    public partial class Root : UIForm
     {
         readonly SynchronizationContext SyncContext = null;
         readonly List<Control> AllBtns = new List<Control>();
@@ -37,13 +38,13 @@ namespace _7DaysToDieUtils
 
         private void ShowDialog(object obj)
         {
-            Loading_Panel.Visible = true;
+            Loading_Progress.Visible = true;
             AllBtns.ForEach(t => t.Enabled = false);
         }
 
         private void HideDialog(object obj)
         {
-            Loading_Panel.Visible = false;
+            Loading_Progress.Visible = false;
             AllBtns.ForEach(t => t.Enabled = true);
         }
 
@@ -220,13 +221,7 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void InstallJiuRi_Btn_Click(object sender, EventArgs e)
         {
-            
-
-            var thread = new Thread(() => Test());
-            thread.Start();
-
-            
-            /*string folderPath = FileUtils.GetSelectFolderPath(
+            string folderPath = FileUtils.GetSelectFolderPath(
                 desc: "请选择解压后的Mod文件夹"
             );
             if (!Directory.Exists(folderPath))
@@ -250,22 +245,7 @@ namespace _7DaysToDieUtils
                 return;
             }
             var thread = new Thread(() => InstallJiuri(folderPath));
-            thread.Start();*/
-        }
-
-        /// <summary>
-        /// 下载Mod
-        /// </summary>
-        /// <param name="cosPath"></param>
-        private async void DownloadMods(string cosPath)
-        {
-            SyncContext.Post(ShowDialog, null);
-
-            string fileName = Path.GetFileName(cosPath);
-            string path = Directory.GetCurrentDirectory() + "\\Mods\\";
-            await QCloudCosUtils.GetInstance().DownloadObjectAsync(cosPath, path, fileName);
-
-            SyncContext.Post(HideDialog, null);
+            thread.Start();
         }
 
         /// <summary>
@@ -293,13 +273,13 @@ namespace _7DaysToDieUtils
                 // 复制Data
                 FileUtils.CopyDirectory(folderPath + "\\Data", gamePath);
 
+                SyncContext.Post(HideDialog, null);
                 MessageBox.Show("安装成功 !");
             } catch (Exception ex)
             {
+                SyncContext.Post(HideDialog, null);
                 MessageBox.Show(ex.Message);
             }
-
-            SyncContext.Post(HideDialog, null);
         }
 
         /// <summary>
@@ -309,46 +289,8 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void Install_Other_Click(object sender, EventArgs e)
         {
-            string folderPath = FileUtils.GetSelectFolderPath(
-                desc: "请选择解压后的Mod文件夹"
-            );
-            if (!Directory.Exists(folderPath))
-            {
-                MessageBox.Show("安装终止, 文件夹不存在!");
-                return;
-            }
-            if (!Directory.Exists(folderPath + "\\Config"))
-            {
-                MessageBox.Show("安装终止, 缺少必要信息 Config 文件夹 !");
-                return;
-            }
-            if (!File.Exists(folderPath + "\\ModInfo.xml"))
-            {
-                MessageBox.Show("安装终止, 缺少必要信息 ModInfo.xml !");
-                return;
-            }
-
-            var thread = new Thread(() => InstallMod(folderPath));
-            thread.Start();
-        }
-
-        /// <summary>
-        /// 安装单个Mod
-        /// </summary>
-        /// <param name="folderPath"></param>
-        private void InstallMod(string folderPath)
-        {
-            SyncContext.Post(ShowDialog, null);
-
-            string gamePath = _ConfigEntity.GamePath;
-            string gameModPath = gamePath + "\\Mods";
-            if (!Directory.Exists(gameModPath))
-            {
-                Directory.CreateDirectory(gameModPath);
-            }
-            FileUtils.CopyDirectory(folderPath, gameModPath);
-
-            SyncContext.Post(HideDialog, null);
+            var modList = new Status_Label();
+            modList.ShowDialog();
         }
 
         /// <summary>
@@ -358,47 +300,79 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void ReductionAllSave_Btn_Click(object sender, EventArgs e)
         {
-            string savePath = FileUtils.GetSelectFolderPath(
-                desc: "请选择存档文件夹 !"
+            string saveZipPath = FileUtils.GetSelectFilePath(
+                title: "请选择存档文件 !",
+                filter: "压缩包 (*.zip)|*.zip"
             );
-            if (savePath.Equals(""))
-            {
-                MessageBox.Show("未选择文件夹 !");
-                return;
-            }
-            if (!Directory.Exists(savePath))
+            if (saveZipPath.Equals(""))
             {
                 MessageBox.Show("未找到存档文件 !");
                 return;
             }
-            if (!savePath.Contains("Saves"))
-            {
-                MessageBox.Show("存档文件名异常, 未找到Saves文件夹 !");
-                return;
-            }
-            var thread = new Thread(() => ReductionAllSaves(savePath));
+            var thread = new Thread(() => ReductionAllSaves(saveZipPath));
             thread.Start();
         }
 
         /// <summary>
         /// 还原全部存档
         /// </summary>
-        private void ReductionAllSaves(string savePath)
+        private void ReductionAllSaves(string saveZipPath)
         {
             SyncContext.Post(ShowDialog, null);
 
+            var isDeleteOldSave = false;
+
+            if (MessageBox.Show(
+                "请选择是否需要删除旧的存档, 选择\"确定\"将删除旧的存档再还原, 选择\"取消\"将直接覆盖存档。 ",
+                "提示: ",  
+                MessageBoxButtons.OKCancel) == DialogResult.OK
+            )
+            {
+                isDeleteOldSave = true;
+            }
+
+            // 获取存档根目录
             string gameSavesBasePath = DataUtils.GetGameSaveBasePath();
             if (!Directory.Exists(gameSavesBasePath))
             {
+                // 不存在则创建存档根目录
                 Directory.CreateDirectory(gameSavesBasePath);
             }
-            string path = Directory.GetParent(gameSavesBasePath).FullName;
-            string parentPath = Directory.GetParent(path).FullName;
-            FileUtils.CopyDirectory(savePath, parentPath);
+
+            var currentTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+            string unzipPath = Path.GetDirectoryName(saveZipPath) + "\\" + currentTimestamp;
+           
+            Directory.CreateDirectory(unzipPath);
+            ZipFile.ExtractToDirectory(saveZipPath, unzipPath);
+
+            string parentPath = Directory.GetParent(gameSavesBasePath).FullName;
+
+            // 还原存档
+            string unzipSavePath = unzipPath + "\\Saves";
+            foreach (string oldPath in Directory.GetDirectories(unzipSavePath))
+            {
+                // 地图名称
+                string worldName = Path.GetFileName(oldPath);
+                foreach (string worldPath in Directory.GetDirectories(unzipSavePath + "\\" + worldName))
+                {
+                    // 游戏名称
+                    string gameName = Path.GetFileName(worldPath);
+                    string oldSavePath = gameSavesBasePath + "\\" + worldName + "\\" + gameName;
+                    string gaemSavePath = unzipSavePath + "\\" + worldName + "\\" + gameName;
+
+                    if (isDeleteOldSave && Directory.Exists(oldSavePath))
+                    {
+                        FileUtils.DeleteDirectory(oldSavePath);
+                    }
+                    FileUtils.CopyDirectory(gaemSavePath, oldSavePath);
+                }
+            }
+            // 删除解压出来的文件
+            FileUtils.DeleteDirectory(unzipPath);
 
             SyncContext.Post(HideDialog, null);
 
-            MessageBox.Show("还原存档成功 !");
+            MessageBox.Show("还原存档结束 !");
         }
 
         /// <summary>
@@ -409,11 +383,11 @@ namespace _7DaysToDieUtils
         private void ReductionOnlySave_Btn_Click(object sender, EventArgs e)
         {
             string savePath = FileUtils.GetSelectFolderPath(
-                desc: "请选择存档文件夹 !"
+                desc: "请选择存档文件 !"
             );
             if (savePath.Equals(""))
             {
-                MessageBox.Show("未选择文件夹 !");
+                MessageBox.Show("未选择文件 !");
                 return;
             }
             if (!Directory.Exists(savePath))

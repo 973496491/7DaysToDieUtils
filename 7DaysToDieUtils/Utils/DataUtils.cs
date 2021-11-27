@@ -39,7 +39,7 @@ namespace _7DaysToDieUtils.Utils
         public static string GetGameSaveBasePath()
         {
             string AppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            return AppDataPath + "\\7DaysToDie\\Saves\\";
+            return AppDataPath + "\\7DaysToDie\\Saves";
         }
 
         /// <summary>

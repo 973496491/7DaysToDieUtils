@@ -1,5 +1,6 @@
 ﻿using _7DaysToDieUtils.Entity;
 using _7DaysToDieUtils.Utils;
+using Sunny.UI;
 using System;
 using System.Drawing;
 using System.IO;
@@ -7,7 +8,7 @@ using System.Windows.Forms;
 
 namespace _7DaysToDieUtils
 {
-    public partial class Init : Form
+    public partial class Init : UIForm
     {
         private ConfigEntity _ConfigEntity = new ConfigEntity();
 

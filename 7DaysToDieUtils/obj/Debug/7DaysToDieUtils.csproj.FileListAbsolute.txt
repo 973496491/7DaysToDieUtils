@@ -17,3 +17,6 @@ D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\obj\Debug\7DaysToDie
 D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\obj\Debug\7DaysToDieUtils.exe.manifest
 D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\obj\Debug\7DaysToDieUtils.application
 D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\bin\Debug\COSXML.dll
+D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\bin\Debug\SunnyUI.Common.dll
+D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\bin\Debug\SunnyUI.dll
+D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\obj\Debug\_7DaysToDieUtils.View.Status_Label.resources
