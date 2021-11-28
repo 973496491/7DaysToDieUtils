@@ -39,6 +39,14 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void InitGame_Btn_Click(object sender, EventArgs e)
         {
+            UIMessageDialog.ShowMessageDialog(
+                this, 
+                "请选择七日杀安装目录~~",
+                "提示",
+                false,
+                UIStyle.Blue
+            );
+
             string path = FileUtils.GetSelectFolderPath(
                 desc: "请选择七日杀安装目录~~"    
             );
@@ -68,22 +76,23 @@ namespace _7DaysToDieUtils
             {
                 GameStatus_Label.Text = "未初始化";
                 GameStatus_Label.ForeColor = Color.Red;
-                GoRoot_Btn.Enabled = _ConfigEntity.IsInit;
+                GoRoot_Btn.Enabled = false;
                 DataUtils.DeleteConfigFile();
                 DataUtils.InitConfig();
                 return;
             }
 
-            GoRoot_Btn.Enabled = _ConfigEntity.IsInit;
             if (_ConfigEntity.IsInit)
             {
                 GameStatus_Label.Text = "初始化成功";
                 GameStatus_Label.ForeColor = Color.Green;
+                GoRoot_Btn.Enabled = true;
             }
             else
             {
                 GameStatus_Label.Text = "未初始化";
                 GameStatus_Label.ForeColor = Color.Red;
+                GoRoot_Btn.Enabled = false;
             }
         }
     }

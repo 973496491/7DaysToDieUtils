@@ -1,20 +1,17 @@
 ﻿using _7DaysToDieUtils.Entity;
 using _7DaysToDieUtils.Utils;
 using Sunny.UI;
-using Sunny.UI.Win32;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static COSXML.Model.Tag.ListBucket;
 
 namespace _7DaysToDieUtils.View
 {
-    public partial class Status_Label : UIForm
+    public partial class OtherModsList : UIForm
     {
         private readonly SynchronizationContext _SyncContext = null;
         private readonly HashSet<ModEntity> SelectMods = new HashSet<ModEntity>();
@@ -22,7 +19,7 @@ namespace _7DaysToDieUtils.View
         private readonly List<(string, string)> DownloadInfo = new List<(string, string)>();
         private readonly ConfigEntity _ConfigEntity = new ConfigEntity();
 
-        public Status_Label()
+        public OtherModsList()
         {
             InitializeComponent();
 

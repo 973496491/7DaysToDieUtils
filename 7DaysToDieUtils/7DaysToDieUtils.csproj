@@ -118,6 +118,12 @@
     <Compile Include="Utils\DataUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\QCloudCosUtils.cs" />
+    <Compile Include="View\JiuRiModsList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\JiuRiModsList.Designer.cs">
+      <DependentUpon>JiuRiModsList.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\OtherModsList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +144,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="View\JiuRiModsList.resx">
+      <DependentUpon>JiuRiModsList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\OtherModsList.resx">
       <DependentUpon>OtherModsList.cs</DependentUpon>
     </EmbeddedResource>

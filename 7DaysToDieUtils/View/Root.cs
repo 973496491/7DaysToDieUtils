@@ -113,7 +113,7 @@ namespace _7DaysToDieUtils
 
             var currnetDate = DateTime.Now.ToString(("yyyy年MM月dd日hh时mm分ss秒"));
             string savePath = disktopPath + "\\Save-" + currnetDate + ".zip";
-            
+
             SyncContext.Post(ShowDialog, null);
             if (File.Exists(savePath))
             {
@@ -121,7 +121,8 @@ namespace _7DaysToDieUtils
                 {
                     File.Delete(savePath);
                     ZipFile.CreateFromDirectory(gameSavePath, savePath, CompressionLevel.Fastest, true);
-                } else
+                }
+                else
                 {
                     MessageBox.Show("备份终止 !");
                     SyncContext.Post(HideDialog, null);
@@ -221,6 +222,16 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void InstallJiuRi_Btn_Click(object sender, EventArgs e)
         {
+            var isOnLineInstall = UIMessageDialog.ShowAskDialog(
+                this, "是否在线安装？选择【确定】将在线安装，选择【取消】将从本地选择文件安装。"
+            );
+
+            if(isOnLineInstall) {
+                var modList = new JiuriModsList();
+                modList.ShowDialog();
+                return;
+            }
+
             string folderPath = FileUtils.GetSelectFolderPath(
                 desc: "请选择解压后的Mod文件夹"
             );
@@ -275,7 +286,8 @@ namespace _7DaysToDieUtils
 
                 SyncContext.Post(HideDialog, null);
                 MessageBox.Show("安装成功 !");
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 SyncContext.Post(HideDialog, null);
                 MessageBox.Show(ex.Message);
@@ -289,7 +301,7 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void Install_Other_Click(object sender, EventArgs e)
         {
-            var modList = new Status_Label();
+            var modList = new OtherModsList();
             modList.ShowDialog();
         }
 
@@ -324,7 +336,7 @@ namespace _7DaysToDieUtils
 
             if (MessageBox.Show(
                 "请选择是否需要删除旧的存档, 选择\"确定\"将删除旧的存档再还原, 选择\"取消\"将直接覆盖存档。 ",
-                "提示: ",  
+                "提示: ",
                 MessageBoxButtons.OKCancel) == DialogResult.OK
             )
             {
@@ -341,7 +353,7 @@ namespace _7DaysToDieUtils
 
             var currentTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
             string unzipPath = Path.GetDirectoryName(saveZipPath) + "\\" + currentTimestamp;
-           
+
             Directory.CreateDirectory(unzipPath);
             ZipFile.ExtractToDirectory(saveZipPath, unzipPath);
 

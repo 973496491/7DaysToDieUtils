@@ -171,6 +171,7 @@ namespace _7DaysToDieUtils
             this.MinimizeBox = false;
             this.Name = "Root";
             this.Text = "七日杀工具";
+            this.TextAlignment = System.Drawing.StringAlignment.Center;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Root_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.SaveOnlyDataBtn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SaveAllDataBtn)).EndInit();

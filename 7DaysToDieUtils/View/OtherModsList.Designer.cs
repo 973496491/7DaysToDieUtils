@@ -1,7 +1,7 @@
 ﻿
 namespace _7DaysToDieUtils.View
 {
-    partial class Status_Label
+    partial class OtherModsList
     {
         /// <summary>
         /// Required designer variable.
@@ -152,8 +152,8 @@ namespace _7DaysToDieUtils.View
             // 
             // Loading_Progress
             // 
-            this.Loading_Progress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.Loading_Progress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Loading_Progress.BackColor = System.Drawing.Color.Transparent;
             this.Loading_Progress.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
