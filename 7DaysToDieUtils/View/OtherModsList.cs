@@ -131,6 +131,13 @@ namespace _7DaysToDieUtils.View
         /// <param name="e"></param>
         private void StartInstall_Btn_Click(object sender, System.EventArgs e)
         {
+            if (SelectMods.Count == 0)
+            {
+                UIMessageDialog.ShowMessageDialog(
+                    this, "未选择Mod", "提示", false, UIStyle.Blue
+                );
+                return;
+            }
             var thread = new Thread(() => DownloadMods());
             thread.Start();
         }
@@ -143,16 +150,22 @@ namespace _7DaysToDieUtils.View
         {
             _SyncContext.Post(ShowDialog, "开始下载Mod...");
 
+            string downloadPath = Directory.GetCurrentDirectory() + "\\Mods\\";
+            if (Directory.Exists(downloadPath))
+            {
+                FileUtils.DeleteDirectory(downloadPath);
+            }
+            Directory.CreateDirectory(downloadPath);
+
             foreach (ModEntity mod in SelectMods)
             {
                 _SyncContext.Post(ShowDialog, "正在下载" + mod.ModName + "中...");
                 string fileName = Path.GetFileName(mod.FileName);
-                string path = Directory.GetCurrentDirectory() + "\\Mods\\";
-                string downloadModPath = path + mod.FileName;
+                string downloadModPath = downloadPath + mod.FileName;
                 DownloadInfo.Add((downloadModPath, mod.ModName));
 
                 await QCloudCosUtils.GetInstance().DownloadObjectAsync(
-                    mod.Key, path, fileName,
+                    mod.Key, downloadPath, fileName,
                     (progress) => _SyncContext.Post(
                         ShowDialog,
                         "正在下载" + mod.ModName + "中(" + progress + ")..."

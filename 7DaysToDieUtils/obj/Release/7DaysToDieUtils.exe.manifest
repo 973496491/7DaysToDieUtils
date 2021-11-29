@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="7DaysToDieUtils.exe" size="8383456">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="7DaysToDieUtils.exe" size="8389600">
       <assemblyIdentity name="7DaysToDieUtils" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>LaA9kPJu6pK9L+77t1LcYzkdzdUlc44xAHhUoHIiQE4=</dsig:DigestValue>
+        <dsig:DigestValue>sg2TzVvKCjkfzWDLenHSQBq5mYrO+mmbkFxM3xU27pg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

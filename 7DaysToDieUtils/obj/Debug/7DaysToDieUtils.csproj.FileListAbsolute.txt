@@ -19,7 +19,6 @@ D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\obj\Debug\7DaysToDie
 D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\bin\Debug\COSXML.dll
 D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\bin\Debug\SunnyUI.Common.dll
 D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\bin\Debug\SunnyUI.dll
-D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\obj\Debug\_7DaysToDieUtils.View.Status_Label.resources
 F:\Development\WorkspaceByWinform\7DaysToDieUtils\7DaysToDieUtils\bin\Debug\7DaysToDieUtils.exe.config
 F:\Development\WorkspaceByWinform\7DaysToDieUtils\7DaysToDieUtils\bin\Debug\7DaysToDieUtils.exe.manifest
 F:\Development\WorkspaceByWinform\7DaysToDieUtils\7DaysToDieUtils\bin\Debug\7DaysToDieUtils.application
@@ -44,3 +43,5 @@ F:\Development\WorkspaceByWinform\7DaysToDieUtils\7DaysToDieUtils\obj\Debug\7Day
 F:\Development\WorkspaceByWinform\7DaysToDieUtils\7DaysToDieUtils\obj\Debug\7DaysToDieUtils.pdb
 F:\Development\WorkspaceByWinform\7DaysToDieUtils\7DaysToDieUtils\obj\Debug\_7DaysToDieUtils.View.JiuriModsList.resources
 F:\Development\WorkspaceByWinform\7DaysToDieUtils\7DaysToDieUtils\obj\Debug\_7DaysToDieUtils.View.OtherModsList.resources
+D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\obj\Debug\_7DaysToDieUtils.View.JiuriModsList.resources
+D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\obj\Debug\_7DaysToDieUtils.View.OtherModsList.resources

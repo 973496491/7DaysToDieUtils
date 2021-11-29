@@ -222,9 +222,7 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void InstallJiuRi_Btn_Click(object sender, EventArgs e)
         {
-            var isOnLineInstall = UIMessageDialog.ShowAskDialog(
-                this, "是否在线安装？选择【确定】将在线安装，选择【取消】将从本地选择文件安装。"
-            );
+            var isOnLineInstall = true;
 
             if(isOnLineInstall) {
                 var modList = new JiuriModsList();
