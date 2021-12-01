@@ -13,7 +13,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>C:\Users\97349\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -28,7 +28,7 @@
     <PublisherName>月见</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>7.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -79,6 +79,12 @@
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>7DaysToDieUtils_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="COSXML, Version=5.4.24.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Tencent.QCloud.Cos.Sdk.5.4.24\lib\netstandard2.0\COSXML.dll</HintPath>
@@ -116,6 +122,7 @@
     <Compile Include="Entity\ModEntity.cs" />
     <Compile Include="Entity\ConfigEntity.cs" />
     <Compile Include="Utils\DataUtils.cs" />
+    <Compile Include="Utils\DialogUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\QCloudCosUtils.cs" />
     <Compile Include="View\JiuRiModsList.cs">
@@ -185,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon_Logo.ico" />
+    <None Include="Resources\Icon_InstallLargeMod.png" />
     <None Include="Resources\Icon_ReductionSave.png" />
     <None Include="Resources\Icon_ReductionOnlySave.png" />
     <None Include="Resources\1636974674_967438.png" />

@@ -1,24 +1,26 @@
 ﻿using _7DaysToDieUtils.Entity;
 using _7DaysToDieUtils.Utils;
+using Newtonsoft.Json;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Threading;
 using System.Windows.Forms;
-using static COSXML.Model.Tag.ListBucket;
 
 namespace _7DaysToDieUtils.View
 {
     public partial class JiuriModsList : UIForm
     {
         private readonly SynchronizationContext _SyncContext = null;
-        private readonly HashSet<ModEntity> SelectMods = new HashSet<ModEntity>();
-        private readonly List<ModEntity> ModList = new List<ModEntity>();
-        private readonly List<(string, string)> DownloadInfo = new List<(string, string)>();
+        private readonly List<ModEntity> SelectMods = new List<ModEntity>();
         private readonly ConfigEntity _ConfigEntity = new ConfigEntity();
+
+        private List<ModEntity> ModList = new List<ModEntity>();
+        private WebClient DownloadClient;
 
         public JiuriModsList()
         {
@@ -47,42 +49,84 @@ namespace _7DaysToDieUtils.View
         /// <summary>
         /// 获取Mod列表
         /// </summary>
-        private void GetModList()
+        private async void GetModList()
         {
             _SyncContext.Post(ShowDialog, "获取Mod列表中...");
 
-            var list = QCloudCosUtils.GetInstance().GetObjectList("Mod_JiuRi");
-            TrasfromListToMods(list.contentsList);
+            try
+            {
+                var list = QCloudCosUtils.GetInstance().GetObjectList("Mod_Config");
+                string configDownloadPath = Directory.GetCurrentDirectory() + "\\Config\\";
+                if (!Directory.Exists(configDownloadPath))
+                {
+                    Directory.CreateDirectory(configDownloadPath);
+                }
 
-            _SyncContext.Post(HideDialog, null);
+                var contentList = list.contentsList;
+
+                if (contentList.Count <= 1)
+                {
+                    _SyncContext.Post(HideDialog, null);
+                    return;
+                }
+
+                var content = contentList[1];
+
+                string key = content.key;
+                string size = FileUtils.GetFileSize(content.size);
+                string modName = Path.GetFileNameWithoutExtension(content.key);
+                string fileName = Path.GetFileName(key);
+
+                await QCloudCosUtils.GetInstance().DownloadObjectAsync(
+                        key, configDownloadPath, fileName,
+                        (progress) => _SyncContext.Post(
+                            ShowDialog,
+                            "正在下载 [" + modName + "] 中(" + progress + ")..."
+                        )
+                    );
+
+                TrasfromConfigJsonToMods();
+
+                _SyncContext.Post(HideDialog, null);
+            }
+            catch (Exception ex)
+            {
+                _SyncContext.Post(HideDialog, null);
+                DialogUtils.ShowErrorDialog(ex);
+            }
         }
 
         /// <summary>
         /// 模型转换
         /// </summary>
-        /// <param name="contents"></param>
-        private void TrasfromListToMods(List<Contents> contents)
+        private void TrasfromConfigJsonToMods()
         {
-            if (contents == null)
+            try
             {
-                return;
-            }
-            foreach (Contents content in contents)
-            {
-
-                if (content.size > 0)
+                string configPath = Directory.GetCurrentDirectory() + "\\Config\\config.json";
+                if (!File.Exists(configPath))
                 {
-                    var entity = new ModEntity
-                    {
-                        Key = content.key,
-                        Size = FileUtils.GetFileSize(content.size),
-                        ModName = Path.GetFileNameWithoutExtension(content.key),
-                        FileName = Path.GetFileName(content.key)
-                    };
-                    ModList.Add(entity);
+                    return;
                 }
+
+                StreamReader sr = new StreamReader(configPath, false);
+                string configStr = sr.ReadToEnd();
+                sr.Close();
+
+                File.Delete(configPath);
+
+                ModList = JsonConvert.DeserializeObject<List<ModEntity>>(configStr);
+                if (ModList == null || ModList.Count == 0)
+                {
+                    return;
+                }
+
+                SetTabData();
             }
-            SetTabData();
+            catch (Exception ex)
+            {
+                DialogUtils.ShowErrorDialog(ex);
+            }
         }
 
         private void SetTabData()
@@ -94,7 +138,6 @@ namespace _7DaysToDieUtils.View
                 Mods_GridView.Rows[index].Cells[0].Value = entity.ModName;
                 Mods_GridView.Rows[index].Cells[1].Value = entity.Size;
                 Mods_GridView.Rows[index].Cells[2].Value = false;
-
             }
         }
 
@@ -148,7 +191,7 @@ namespace _7DaysToDieUtils.View
                 return;
             }
 
-            var thread = new Thread(() => DownloadMods());
+            var thread = new Thread(() => DownloadMods(SelectMods[0]));
             thread.Start();
         }
 
@@ -156,7 +199,7 @@ namespace _7DaysToDieUtils.View
         /// 下载Mod
         /// </summary>
         /// <param name="cosPath"></param>
-        private async void DownloadMods()
+        private void DownloadMods(ModEntity mod)
         {
             _SyncContext.Post(ShowDialog, "开始下载Mod...");
 
@@ -167,30 +210,23 @@ namespace _7DaysToDieUtils.View
             }
             Directory.CreateDirectory(downloadPath);
 
-            foreach (ModEntity mod in SelectMods)
-            {
-                _SyncContext.Post(ShowDialog, "正在下载 [" + mod.ModName + "] 中...");
-                string fileName = Path.GetFileName(mod.FileName);
-                string downloadModPath = downloadPath + mod.FileName;
-                DownloadInfo.Add((downloadModPath, mod.ModName));
+            _SyncContext.Post(ShowDialog, "正在下载 [" + mod.ModName + "] 中...");
+            string fileName = Path.GetFileName(mod.FileName);
+            string downloadModPath = downloadPath + mod.FileName;
 
-                await QCloudCosUtils.GetInstance().DownloadObjectAsync(
-                    mod.Key, downloadPath, fileName,
-                    (progress) => _SyncContext.Post(
-                        ShowDialog,
-                        "正在下载 [" + mod.ModName + "] 中(" + progress + ")..."
-                    )
-                );
-            }
-
-            foreach ((string, string) path in DownloadInfo)
-            {
-                InstallMod(path.Item1, path.Item2);
-            }
-
-            DownloadInfo.Clear();
-            _SyncContext.Post(HideDialog, null);
-            UIMessageDialog.ShowMessageDialog(this, "安装结束...", "提示", false, UIStyle.Blue);
+            DownloadClient = FileUtils.DownloadFile(
+                this,
+                mod.Key,
+                downloadModPath,
+                (int progress) =>
+                {
+                    _SyncContext.Post(ShowDialog, "正在下载 [" + mod.ModName + "]" + "中(" + progress + "%)...");
+                },
+                () =>
+                {
+                    InstallMod(downloadModPath, mod.ModName);
+                }
+            );
         }
 
         /// <summary>
@@ -200,13 +236,13 @@ namespace _7DaysToDieUtils.View
         /// <param name="modName"></param>
         private void InstallMod(string modPath, string modName)
         {
-           try
+            try
             {
                 Debug.WriteLine("modPath: " + modPath + " || modName: " + modName);
                 _SyncContext.Post(ShowDialog, "安装 [" + modName + "] 中...");
 
                 var canNext = UIMessageDialog.ShowMessageDialog(
-                    this, "安装之前需要删除Mods文件夹, 是否继续 ?", "提示", true, UIStyle.Blue
+                    this, "安装之前需要删除Mods文件夹以及地图文件夹, 是否继续 ?", "提示", true, UIStyle.Blue
                 );
 
                 if (!canNext)
@@ -217,11 +253,19 @@ namespace _7DaysToDieUtils.View
                     return;
                 }
 
+                // 删除Mods
                 string gamePath = _ConfigEntity.GamePath;
                 string gameModPath = gamePath + "\\Mods";
                 if (Directory.Exists(gameModPath))
                 {
                     FileUtils.DeleteDirectory(gameModPath);
+                }
+
+                // 删除地图
+                string gameWorldPath = gamePath + "\\Data\\Worlds";
+                if (Directory.Exists(gameWorldPath))
+                {
+                    FileUtils.DeleteDirectory(gameWorldPath);
                 }
 
                 Directory.CreateDirectory(gameModPath);
@@ -258,7 +302,11 @@ namespace _7DaysToDieUtils.View
 
                 string downloadPath = Directory.GetCurrentDirectory() + "\\Mods\\";
                 FileUtils.DeleteDirectory(downloadPath);
-            } catch (Exception ex)
+
+                _SyncContext.Post(HideDialog, null);
+                UIMessageDialog.ShowMessageDialog(this, "安装结束...", "提示", false, UIStyle.Blue);
+            }
+            catch (Exception ex)
             {
                 UIMessageDialog.ShowMessageDialog(
                     this, "软件异常, 请联系QQ: 973496491 \n" + ex.Message, "提示", false, UIStyle.Blue
@@ -276,13 +324,52 @@ namespace _7DaysToDieUtils.View
             if (Loading_Progress.Visible)
             {
                 var isOk = UIMessageDialog.ShowAskDialog(this, "有任务正在进行中, 是否关闭 ?");
-                e.Cancel = !isOk;
+                if (isOk)
+                {
+                    _SyncContext.Post(ShowDialog, "清理安装残留数据中, 请稍候...");
+
+                    if (DownloadClient != null && DownloadClient.IsBusy)
+                    {
+                        DownloadClient.CancelAsync();
+                        DownloadClient.Dispose();
+                    }
+
+                    int tryTimes = 0;
+                    while (tryTimes < 5)
+                    {
+                        Thread.Sleep(100);
+                        try
+                        {
+                            var modsPath = Directory.GetCurrentDirectory() + "\\Mods";
+                            if (Directory.Exists(modsPath))
+                            {
+                                FileUtils.DeleteDirectory(modsPath);
+                            }
+
+                            var configPath = Directory.GetCurrentDirectory() + "\\Config";
+                            if (Directory.Exists(configPath))
+                            {
+                                FileUtils.DeleteDirectory(configPath);
+                            }
+
+                            _SyncContext.Post(HideDialog, null);
+                            break;
+                        }
+                        catch
+                        {
+                            Trace.WriteLine("delete error " + tryTimes.ToString());
+                        }
+                        finally
+                        {
+                            tryTimes++;
+                        }
+                    }
+                    e.Cancel = false;
+                } else
+                {
+                    e.Cancel = true;
+                }
             }
-        }
-
-        private void Mods_GridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

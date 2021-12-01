@@ -113,11 +113,11 @@ namespace _7DaysToDieUtils
             // InstallJiuRi_Btn
             // 
             this.InstallJiuRi_Btn.BackColor = System.Drawing.Color.Transparent;
-            this.InstallJiuRi_Btn.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_Install_JiuRi;
-            this.InstallJiuRi_Btn.Location = new System.Drawing.Point(671, 73);
+            this.InstallJiuRi_Btn.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_InstallLargeMod;
+            this.InstallJiuRi_Btn.Location = new System.Drawing.Point(713, 73);
             this.InstallJiuRi_Btn.Margin = new System.Windows.Forms.Padding(0);
             this.InstallJiuRi_Btn.Name = "InstallJiuRi_Btn";
-            this.InstallJiuRi_Btn.Size = new System.Drawing.Size(303, 52);
+            this.InstallJiuRi_Btn.Size = new System.Drawing.Size(261, 52);
             this.InstallJiuRi_Btn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.InstallJiuRi_Btn.TabIndex = 8;
             this.InstallJiuRi_Btn.TabStop = false;

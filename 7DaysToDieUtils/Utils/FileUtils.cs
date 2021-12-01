@@ -1,11 +1,54 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
+using System.Net;
 using System.Windows.Forms;
 
 namespace _7DaysToDieUtils
 {
     class FileUtils
     {
+        /// <summary>
+        /// 下载文件
+        /// </summary>
+        /// <param name="form"></param>
+        /// <param name="url"></param>
+        /// <param name="savefile"></param>
+        /// <param name="downloadProgressChanged">下载进度</param>
+        /// <param name="downloadFileCompleted">下载完成</param>
+        public static WebClient DownloadFile(
+            Form form,
+            string url,
+            string savefile,
+            Action<int> downloadProgressChanged,
+            Action downloadFileCompleted
+        )
+        {
+            WebClient client = new WebClient();
+            if (downloadProgressChanged != null)
+            {
+                client.DownloadProgressChanged += delegate (object sender, DownloadProgressChangedEventArgs e)
+                {
+                    if (client.IsBusy)
+                    {
+                        _ = form.Invoke(downloadProgressChanged, e.ProgressPercentage);
+                    }
+                };
+            }
+            if (downloadFileCompleted != null)
+            {
+                client.DownloadFileCompleted += delegate (object sender, AsyncCompletedEventArgs e)
+                {
+                    if (client.IsBusy)
+                    {
+                        _ = form.Invoke(downloadFileCompleted);
+                    }
+                };
+            }
+            client.DownloadFileAsync(new Uri(url), savefile);
+            return client;
+        }
+
         /// <summary>
         /// 计算文件大小函数(保留两位小数),Size为字节大小
         /// </summary>

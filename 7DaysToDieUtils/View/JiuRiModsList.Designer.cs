@@ -102,7 +102,6 @@ namespace _7DaysToDieUtils.View
             this.Mods_GridView.ShowGridLine = true;
             this.Mods_GridView.Size = new System.Drawing.Size(794, 409);
             this.Mods_GridView.TabIndex = 1;
-            this.Mods_GridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Mods_GridView_CellContentClick);
             this.Mods_GridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Mods_GridView_CellValueChanged);
             this.Mods_GridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.Mods_GridView_CurrentCellDirtyStateChanged);
             // 
