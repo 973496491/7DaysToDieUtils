@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -31,7 +32,13 @@ namespace _7DaysToDieUtils
                 {
                     if (client.IsBusy)
                     {
-                        _ = form.Invoke(downloadProgressChanged, e.ProgressPercentage);
+                        try
+                        {
+                            form.Invoke(downloadProgressChanged, e.ProgressPercentage);
+                        } catch (Exception ex)
+                        {
+                            Debug.WriteLine(ex.Message);
+                        }
                     }
                 };
             }
@@ -39,10 +46,13 @@ namespace _7DaysToDieUtils
             {
                 client.DownloadFileCompleted += delegate (object sender, AsyncCompletedEventArgs e)
                 {
-                    if (client.IsBusy)
+                    try
                     {
-                        _ = form.Invoke(downloadFileCompleted);
-                    }
+                        form.Invoke(downloadFileCompleted);
+                    } catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex.Message);
+                    } 
                 };
             }
             client.DownloadFileAsync(new Uri(url), savefile);

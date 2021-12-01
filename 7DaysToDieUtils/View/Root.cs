@@ -343,7 +343,7 @@ namespace _7DaysToDieUtils
                         {
                             FileUtils.DeleteDirectory(oldSavePath);
                         }
-                        FileUtils.CopyDirectory(gaemSavePath, oldSavePath);
+                        FileUtils.CopyDirectory(gaemSavePath, Path.GetDirectoryName(oldSavePath));
                     }
                 }
                 // 删除解压出来的文件
