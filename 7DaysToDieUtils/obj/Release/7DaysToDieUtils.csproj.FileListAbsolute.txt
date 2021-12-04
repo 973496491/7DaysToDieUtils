@@ -21,3 +21,4 @@ D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\bin\Release\SunnyUI.
 D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\bin\Release\SunnyUI.dll
 D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\obj\Release\_7DaysToDieUtils.View.JiuriModsList.resources
 D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\obj\Release\_7DaysToDieUtils.View.OtherModsList.resources
+D:\Development\WinformWorks\7DaysToDieUtils\7DaysToDieUtils\obj\Release\7DaysToDieUtils.csproj.CopyComplete
