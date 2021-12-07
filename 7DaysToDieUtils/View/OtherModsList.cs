@@ -191,6 +191,9 @@ namespace _7DaysToDieUtils.View
         private void InstallMod(string modPath, string modName)
         {
             Debug.WriteLine("modPath: " + modPath + " || modName: " + modName);
+            Debug.WriteLine(
+                "Thread.CurrentThread: " + Thread.CurrentThread + "|" + "Thread.CurrentContext: " + Thread.CurrentContext
+            );
             _SyncContext.Post(ShowDialog, "安装" + modName + "中...");
 
             string gamePath = _ConfigEntity.GamePath;

@@ -229,16 +229,25 @@ namespace _7DaysToDieUtils.View
             );
         }
 
+        private void InstallMod(string modPath, string modName)
+        {
+            var thread = new Thread(() => InstallMod_Impl(modPath, modName));
+            thread.Start();
+        }
+
         /// <summary>
         /// 安装旧日
         /// </summary>
         /// <param name="modPath"></param>
         /// <param name="modName"></param>
-        private void InstallMod(string modPath, string modName)
+        private void InstallMod_Impl(string modPath, string modName)
         {
             try
             {
                 Debug.WriteLine("modPath: " + modPath + " || modName: " + modName);
+                Debug.WriteLine(
+                    "Thread.CurrentThread: " + Thread.CurrentThread + "|" + "Thread.CurrentContext: " + Thread.CurrentContext
+                );
                 _SyncContext.Post(ShowDialog, "安装 [" + modName + "] 中...");
 
                 var canNext = UIMessageDialog.ShowMessageDialog(
@@ -281,6 +290,7 @@ namespace _7DaysToDieUtils.View
                     UIMessageDialog.ShowMessageDialog(
                         this, "安装文件异常, 安装终止, 请联系QQ: 973496491 ?", "提示", false, UIStyle.Blue
                     );
+
                     return;
                 }
 
