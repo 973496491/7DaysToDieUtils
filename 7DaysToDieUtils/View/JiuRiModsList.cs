@@ -1,6 +1,7 @@
 ﻿using _7DaysToDieUtils.Entity;
 using _7DaysToDieUtils.Utils;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
+using static COSXML.Model.Tag.ListBucket;
 
 namespace _7DaysToDieUtils.View
 {
@@ -21,6 +23,7 @@ namespace _7DaysToDieUtils.View
 
         private List<ModEntity> ModList = new List<ModEntity>();
         private WebClient DownloadClient;
+        private bool IsFastDownload = false;
 
         public JiuriModsList()
         {
@@ -29,7 +32,7 @@ namespace _7DaysToDieUtils.View
             _ConfigEntity = DataUtils.LoadConfig();
             _SyncContext = SynchronizationContext.Current;
 
-            GetModList();
+            CheckIsFastDownload();
         }
 
         private void ShowDialog(object obj)
@@ -46,6 +49,57 @@ namespace _7DaysToDieUtils.View
             StatusText_Label.Text = "Waiting......";
         }
 
+        private async void CheckIsFastDownload()
+        {
+            _SyncContext.Post(ShowDialog, "获取配置文件中...");
+
+            var list = QCloudCosUtils.GetInstance().GetObjectList("Mod_Config");
+            string configDownloadPath = Directory.GetCurrentDirectory() + "\\Config\\";
+
+            if (!Directory.Exists(configDownloadPath))
+            {
+                Directory.CreateDirectory(configDownloadPath);
+            }
+
+            var contentList = list.contentsList;
+
+            if (contentList.Count <= 2)
+            {
+                _SyncContext.Post(HideDialog, null);
+                return;
+            }
+
+            var content = contentList[2];
+
+            string key = content.key;
+            string modName = Path.GetFileNameWithoutExtension(content.key);
+            string fileName = Path.GetFileName(key);
+
+            await QCloudCosUtils.GetInstance().DownloadObjectAsync(
+                    key, configDownloadPath, fileName,
+                    (progress) => _SyncContext.Post(ShowDialog, "获取配置文件中...")
+                );
+
+            string defaultConfigPath = Directory.GetCurrentDirectory() + "\\Config\\defaultConfig.json";
+            if (!File.Exists(defaultConfigPath))
+            {
+                IsFastDownload = false;
+            } else
+            {
+                StreamReader sr = new StreamReader(defaultConfigPath, false);
+                string configStr = sr.ReadToEnd();
+                sr.Close();
+                File.Delete(defaultConfigPath);
+
+                JObject jsonObj = JsonConvert.DeserializeObject<JObject>(configStr);
+                IsFastDownload = (bool) jsonObj["IsFastDownload"];
+            }
+
+            _SyncContext.Post(HideDialog, null);
+
+            GetModList();
+        }
+
         /// <summary>
         /// 获取Mod列表
         /// </summary>
@@ -55,45 +109,83 @@ namespace _7DaysToDieUtils.View
 
             try
             {
-                var list = QCloudCosUtils.GetInstance().GetObjectList("Mod_Config");
-                string configDownloadPath = Directory.GetCurrentDirectory() + "\\Config\\";
-                if (!Directory.Exists(configDownloadPath))
+                // 判断是高速流量还是低速
+                if (IsFastDownload)
                 {
-                    Directory.CreateDirectory(configDownloadPath);
-                }
+                    var list = QCloudCosUtils.GetInstance().GetObjectList("Mod_Test");
+                    TrasfromListToMods(list.contentsList);
 
-                var contentList = list.contentsList;
-
-                if (contentList.Count <= 1)
-                {
                     _SyncContext.Post(HideDialog, null);
-                    return;
+                } else
+                {
+                    var list = QCloudCosUtils.GetInstance().GetObjectList("Mod_Config");
+                    string configDownloadPath = Directory.GetCurrentDirectory() + "\\Config\\";
+                    if (!Directory.Exists(configDownloadPath))
+                    {
+                        Directory.CreateDirectory(configDownloadPath);
+                    }
+
+                    var contentList = list.contentsList;
+
+                    if (contentList.Count <= 1)
+                    {
+                        _SyncContext.Post(HideDialog, null);
+                        return;
+                    }
+
+                    var content = contentList[1];
+
+                    string key = content.key;
+                    string size = FileUtils.GetFileSize(content.size);
+                    string modName = Path.GetFileNameWithoutExtension(content.key);
+                    string fileName = Path.GetFileName(key);
+
+                    await QCloudCosUtils.GetInstance().DownloadObjectAsync(
+                            key, configDownloadPath, fileName,
+                            (progress) => _SyncContext.Post(
+                                ShowDialog,
+                                "正在下载 [" + modName + "] 中(" + progress + ")..."
+                            )
+                        );
+
+                    TrasfromConfigJsonToMods();
+
+                    _SyncContext.Post(HideDialog, null);
                 }
-
-                var content = contentList[1];
-
-                string key = content.key;
-                string size = FileUtils.GetFileSize(content.size);
-                string modName = Path.GetFileNameWithoutExtension(content.key);
-                string fileName = Path.GetFileName(key);
-
-                await QCloudCosUtils.GetInstance().DownloadObjectAsync(
-                        key, configDownloadPath, fileName,
-                        (progress) => _SyncContext.Post(
-                            ShowDialog,
-                            "正在下载 [" + modName + "] 中(" + progress + ")..."
-                        )
-                    );
-
-                TrasfromConfigJsonToMods();
-
-                _SyncContext.Post(HideDialog, null);
             }
             catch (Exception ex)
             {
                 _SyncContext.Post(HideDialog, null);
                 DialogUtils.ShowErrorDialog(ex);
             }
+        }
+
+        /// <summary>
+        /// 模型转换
+        /// </summary>
+        /// <param name="contents"></param>
+        private void TrasfromListToMods(List<Contents> contents)
+        {
+            if (contents == null)
+            {
+                return;
+            }
+            foreach (Contents content in contents)
+            {
+
+                if (content.size > 0)
+                {
+                    var entity = new ModEntity
+                    {
+                        Key = content.key,
+                        Size = FileUtils.GetFileSize(content.size),
+                        ModName = Path.GetFileNameWithoutExtension(content.key),
+                        FileName = Path.GetFileName(content.key)
+                    };
+                    ModList.Add(entity);
+                }
+            }
+            SetTabData();
         }
 
         /// <summary>
@@ -191,7 +283,14 @@ namespace _7DaysToDieUtils.View
                 return;
             }
 
-            var thread = new Thread(() => DownloadMods(SelectMods[0]));
+            Thread thread;
+            if (IsFastDownload)
+            {
+                thread = new Thread(() => DownloadMods(SelectMods[0]));
+            } else
+            {
+                thread = new Thread(() => DownloadModByLink(SelectMods[0]));
+            }
             thread.Start();
         }
 
@@ -199,7 +298,39 @@ namespace _7DaysToDieUtils.View
         /// 下载Mod
         /// </summary>
         /// <param name="cosPath"></param>
-        private void DownloadMods(ModEntity mod)
+        private async void DownloadMods(ModEntity mod)
+        {
+            _SyncContext.Post(ShowDialog, "开始下载Mod...");
+
+            string downloadPath = Directory.GetCurrentDirectory() + "\\Mods\\";
+            if (Directory.Exists(downloadPath))
+            {
+                FileUtils.DeleteDirectory(downloadPath);
+            }
+            Directory.CreateDirectory(downloadPath);
+
+            _SyncContext.Post(ShowDialog, "正在下载 [" + mod.ModName + "] 中...");
+            string fileName = Path.GetFileName(mod.FileName);
+            string downloadModPath = downloadPath + mod.FileName;
+
+            await QCloudCosUtils.GetInstance().DownloadObjectAsync(
+                mod.Key, downloadPath, fileName,
+                (progress) => _SyncContext.Post(
+                    ShowDialog,
+                    "正在下载 [" + mod.ModName + " ]中(" + progress + ")..."
+                )
+            );
+
+            InstallMod(downloadModPath, mod.ModName);
+
+            _SyncContext.Post(HideDialog, null);
+        }
+
+        /// <summary>
+        /// 下载Mod
+        /// </summary>
+        /// <param name="cosPath"></param>
+        private void DownloadModByLink(ModEntity mod)
         {
             _SyncContext.Post(ShowDialog, "开始下载Mod...");
 
