@@ -1,7 +1,7 @@
 ﻿
 namespace _7DaysToDieUtils
 {
-    partial class Init
+    partial class InitForm
     {
         /// <summary>
         /// Required designer variable.
@@ -33,6 +33,7 @@ namespace _7DaysToDieUtils
             this.uiLabel1 = new Sunny.UI.UILabel();
             this.InitGame_Btn = new Sunny.UI.UIButton();
             this.GameStatus_Label = new Sunny.UI.UILabel();
+            this.Login_Btn = new Sunny.UI.UIButton();
             this.SuspendLayout();
             // 
             // GoRoot_Btn
@@ -40,7 +41,7 @@ namespace _7DaysToDieUtils
             this.GoRoot_Btn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.GoRoot_Btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.GoRoot_Btn.IsScaled = false;
-            this.GoRoot_Btn.Location = new System.Drawing.Point(147, 97);
+            this.GoRoot_Btn.Location = new System.Drawing.Point(151, 97);
             this.GoRoot_Btn.MinimumSize = new System.Drawing.Size(1, 1);
             this.GoRoot_Btn.Name = "GoRoot_Btn";
             this.GoRoot_Btn.Size = new System.Drawing.Size(100, 35);
@@ -84,19 +85,33 @@ namespace _7DaysToDieUtils
             this.GameStatus_Label.Text = "未初始化";
             this.GameStatus_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // Init
+            // Login_Btn
+            // 
+            this.Login_Btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Login_Btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Login_Btn.IsScaled = false;
+            this.Login_Btn.Location = new System.Drawing.Point(15, 149);
+            this.Login_Btn.MinimumSize = new System.Drawing.Size(1, 1);
+            this.Login_Btn.Name = "Login_Btn";
+            this.Login_Btn.Size = new System.Drawing.Size(236, 35);
+            this.Login_Btn.TabIndex = 8;
+            this.Login_Btn.Text = "登录";
+            this.Login_Btn.Click += new System.EventHandler(this.Login_Btn_Click);
+            // 
+            // InitForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(264, 150);
+            this.ClientSize = new System.Drawing.Size(265, 199);
+            this.Controls.Add(this.Login_Btn);
             this.Controls.Add(this.GameStatus_Label);
             this.Controls.Add(this.InitGame_Btn);
             this.Controls.Add(this.uiLabel1);
             this.Controls.Add(this.GoRoot_Btn);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Init";
-            this.Text = "Loading";
+            this.Name = "InitForm";
+            this.Text = "初始化";
             this.TextAlignment = System.Drawing.StringAlignment.Center;
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -108,5 +123,6 @@ namespace _7DaysToDieUtils
         private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UIButton InitGame_Btn;
         private Sunny.UI.UILabel GameStatus_Label;
+        private Sunny.UI.UIButton Login_Btn;
     }
 }

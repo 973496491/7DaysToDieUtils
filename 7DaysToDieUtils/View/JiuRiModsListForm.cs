@@ -1,4 +1,6 @@
-﻿using _7DaysToDieUtils.Entity;
+﻿using _7DaysToDieUtils.Cache;
+using _7DaysToDieUtils.Entity;
+using _7DaysToDieUtils.Model;
 using _7DaysToDieUtils.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,34 +17,37 @@ using static COSXML.Model.Tag.ListBucket;
 
 namespace _7DaysToDieUtils.View
 {
-    public partial class JiuriModsList : UIForm
+    public partial class JiuriModsListForm : UIForm
     {
         private readonly SynchronizationContext _SyncContext = null;
         private readonly List<ModEntity> SelectMods = new List<ModEntity>();
         private readonly ConfigEntity _ConfigEntity = new ConfigEntity();
 
+        private JiuRiModsListModel Model;
+
         private List<ModEntity> ModList = new List<ModEntity>();
         private WebClient DownloadClient;
         private bool IsFastDownload = false;
 
-        public JiuriModsList()
+        public JiuriModsListForm()
         {
             InitializeComponent();
 
             _ConfigEntity = DataUtils.LoadConfig();
             _SyncContext = SynchronizationContext.Current;
+            Model = new JiuRiModsListModel(this);
 
             CheckIsFastDownload();
         }
 
-        private void ShowDialog(object obj)
+        private void ShowLoading(object obj)
         {
             StartInstall_Btn.Enabled = false;
             Loading_Progress.Visible = true;
             StatusText_Label.Text = obj.ToString();
         }
 
-        private void HideDialog(object obj)
+        private void HideLoading(object obj)
         {
             StartInstall_Btn.Enabled = true;
             Loading_Progress.Visible = false;
@@ -51,7 +56,7 @@ namespace _7DaysToDieUtils.View
 
         private async void CheckIsFastDownload()
         {
-            _SyncContext.Post(ShowDialog, "获取配置文件中...");
+            _SyncContext.Post(ShowLoading, "获取配置文件中...");
 
             var list = QCloudCosUtils.GetInstance().GetObjectList("Mod_Config");
             string configDownloadPath = Directory.GetCurrentDirectory() + "\\Config\\";
@@ -65,7 +70,7 @@ namespace _7DaysToDieUtils.View
 
             if (contentList.Count <= 2)
             {
-                _SyncContext.Post(HideDialog, null);
+                _SyncContext.Post(HideLoading, null);
                 return;
             }
 
@@ -77,14 +82,15 @@ namespace _7DaysToDieUtils.View
 
             await QCloudCosUtils.GetInstance().DownloadObjectAsync(
                     key, configDownloadPath, fileName,
-                    (progress) => _SyncContext.Post(ShowDialog, "获取配置文件中...")
+                    (progress) => _SyncContext.Post(ShowLoading, "获取配置文件中...")
                 );
 
             string defaultConfigPath = Directory.GetCurrentDirectory() + "\\Config\\defaultConfig.json";
             if (!File.Exists(defaultConfigPath))
             {
                 IsFastDownload = false;
-            } else
+            }
+            else
             {
                 StreamReader sr = new StreamReader(defaultConfigPath, false);
                 string configStr = sr.ReadToEnd();
@@ -92,10 +98,10 @@ namespace _7DaysToDieUtils.View
                 File.Delete(defaultConfigPath);
 
                 JObject jsonObj = JsonConvert.DeserializeObject<JObject>(configStr);
-                IsFastDownload = (bool) jsonObj["IsFastDownload"];
+                IsFastDownload = (bool)jsonObj["IsFastDownload"];
             }
 
-            _SyncContext.Post(HideDialog, null);
+            _SyncContext.Post(HideLoading, null);
 
             GetModList();
         }
@@ -105,18 +111,19 @@ namespace _7DaysToDieUtils.View
         /// </summary>
         private async void GetModList()
         {
-            _SyncContext.Post(ShowDialog, "获取Mod列表中...");
+            _SyncContext.Post(ShowLoading, "获取Mod列表中...");
 
             try
             {
                 // 判断是高速流量还是低速
-                if (IsFastDownload)
+                if (UserInfo.GetInstance().FastDownloadCount > 0 || IsFastDownload)
                 {
                     var list = QCloudCosUtils.GetInstance().GetObjectList("Mod_Test");
                     TrasfromListToMods(list.contentsList);
 
-                    _SyncContext.Post(HideDialog, null);
-                } else
+                    _SyncContext.Post(HideLoading, null);
+                }
+                else
                 {
                     var list = QCloudCosUtils.GetInstance().GetObjectList("Mod_Config");
                     string configDownloadPath = Directory.GetCurrentDirectory() + "\\Config\\";
@@ -129,7 +136,7 @@ namespace _7DaysToDieUtils.View
 
                     if (contentList.Count <= 1)
                     {
-                        _SyncContext.Post(HideDialog, null);
+                        _SyncContext.Post(HideLoading, null);
                         return;
                     }
 
@@ -143,19 +150,19 @@ namespace _7DaysToDieUtils.View
                     await QCloudCosUtils.GetInstance().DownloadObjectAsync(
                             key, configDownloadPath, fileName,
                             (progress) => _SyncContext.Post(
-                                ShowDialog,
+                                ShowLoading,
                                 "正在下载 [" + modName + "] 中(" + progress + ")..."
                             )
                         );
 
                     TrasfromConfigJsonToMods();
 
-                    _SyncContext.Post(HideDialog, null);
+                    _SyncContext.Post(HideLoading, null);
                 }
             }
             catch (Exception ex)
             {
-                _SyncContext.Post(HideDialog, null);
+                _SyncContext.Post(HideLoading, null);
                 DialogUtils.ShowErrorDialog(ex);
             }
         }
@@ -284,10 +291,11 @@ namespace _7DaysToDieUtils.View
             }
 
             Thread thread;
-            if (IsFastDownload)
+            if (UserInfo.GetInstance().FastDownloadCount > 0 || IsFastDownload)
             {
                 thread = new Thread(() => DownloadMods(SelectMods[0]));
-            } else
+            }
+            else
             {
                 thread = new Thread(() => DownloadModByLink(SelectMods[0]));
             }
@@ -300,7 +308,7 @@ namespace _7DaysToDieUtils.View
         /// <param name="cosPath"></param>
         private async void DownloadMods(ModEntity mod)
         {
-            _SyncContext.Post(ShowDialog, "开始下载Mod...");
+            _SyncContext.Post(ShowLoading, "开始下载Mod...");
 
             string downloadPath = Directory.GetCurrentDirectory() + "\\Mods\\";
             if (Directory.Exists(downloadPath))
@@ -309,21 +317,21 @@ namespace _7DaysToDieUtils.View
             }
             Directory.CreateDirectory(downloadPath);
 
-            _SyncContext.Post(ShowDialog, "正在下载 [" + mod.ModName + "] 中...");
+            _SyncContext.Post(ShowLoading, "正在下载 [" + mod.ModName + "] 中...");
             string fileName = Path.GetFileName(mod.FileName);
             string downloadModPath = downloadPath + mod.FileName;
 
             await QCloudCosUtils.GetInstance().DownloadObjectAsync(
                 mod.Key, downloadPath, fileName,
                 (progress) => _SyncContext.Post(
-                    ShowDialog,
+                    ShowLoading,
                     "正在下载 [" + mod.ModName + " ]中(" + progress + ")..."
                 )
             );
 
             InstallMod(downloadModPath, mod.ModName);
 
-            _SyncContext.Post(HideDialog, null);
+            _SyncContext.Post(HideLoading, null);
         }
 
         /// <summary>
@@ -332,7 +340,7 @@ namespace _7DaysToDieUtils.View
         /// <param name="cosPath"></param>
         private void DownloadModByLink(ModEntity mod)
         {
-            _SyncContext.Post(ShowDialog, "开始下载Mod...");
+            _SyncContext.Post(ShowLoading, "开始下载Mod...");
 
             string downloadPath = Directory.GetCurrentDirectory() + "\\Mods\\";
             if (Directory.Exists(downloadPath))
@@ -341,7 +349,7 @@ namespace _7DaysToDieUtils.View
             }
             Directory.CreateDirectory(downloadPath);
 
-            _SyncContext.Post(ShowDialog, "正在下载 [" + mod.ModName + "] 中...");
+            _SyncContext.Post(ShowLoading, "正在下载 [" + mod.ModName + "] 中...");
             string fileName = Path.GetFileName(mod.FileName);
             string downloadModPath = downloadPath + mod.FileName;
 
@@ -351,7 +359,7 @@ namespace _7DaysToDieUtils.View
                 downloadModPath,
                 (int progress) =>
                 {
-                    _SyncContext.Post(ShowDialog, "正在下载 [" + mod.ModName + "]" + "中(" + progress + "%)...");
+                    _SyncContext.Post(ShowLoading, "正在下载 [" + mod.ModName + "]" + "中(" + progress + "%)...");
                 },
                 () =>
                 {
@@ -379,7 +387,7 @@ namespace _7DaysToDieUtils.View
                 Debug.WriteLine(
                     "Thread.CurrentThread: " + Thread.CurrentThread + "|" + "Thread.CurrentContext: " + Thread.CurrentContext
                 );
-                _SyncContext.Post(ShowDialog, "安装 [" + modName + "] 中...");
+                _SyncContext.Post(ShowLoading, "安装 [" + modName + "] 中...");
 
                 var canNext = UIMessageDialog.ShowMessageDialog(
                     this, "安装之前需要删除Mods文件夹以及地图文件夹, 是否继续 ?", "提示", true, UIStyle.Blue
@@ -428,24 +436,28 @@ namespace _7DaysToDieUtils.View
                 unzipPath = Directory.GetDirectories(unzipPath)[0];
 
                 // 复制Dll
-                _SyncContext.Post(ShowDialog, "安装 [Assemble-CSharp.dll] 中...");
+                _SyncContext.Post(ShowLoading, "安装 [Assemble-CSharp.dll] 中...");
 
                 FileUtils.CopyDirectory(unzipPath + "\\7DaysToDie_Data", gamePath);
 
                 // 复制Data
-                _SyncContext.Post(ShowDialog, "安装 [Data] 中...");
+                _SyncContext.Post(ShowLoading, "安装 [Data] 中...");
                 FileUtils.CopyDirectory(unzipPath + "\\Data", gamePath);
 
 
                 // 复制Mods
-                _SyncContext.Post(ShowDialog, "安装 [Mods] 中...");
+                _SyncContext.Post(ShowLoading, "安装 [Mods] 中...");
                 FileUtils.CopyDirectory(unzipPath + "\\Mods", gamePath);
 
                 string downloadPath = Directory.GetCurrentDirectory() + "\\Mods\\";
                 FileUtils.DeleteDirectory(downloadPath);
 
-                _SyncContext.Post(HideDialog, null);
-                UIMessageDialog.ShowMessageDialog(this, "安装结束...", "提示", false, UIStyle.Blue);
+                UserInfo.GetInstance().FastDownloadCount--;
+
+                Model.UploadDownloadCount((_) => {
+                    _SyncContext.Post(HideLoading, null);
+                    InstallFinish();
+                });
             }
             catch (Exception ex)
             {
@@ -453,6 +465,12 @@ namespace _7DaysToDieUtils.View
                     this, "软件异常, 请联系QQ: 973496491 \n" + ex.Message, "提示", false, UIStyle.Blue
                 );
             }
+        }
+
+        private void InstallFinish()
+        {
+            UIMessageDialog.ShowMessageDialog(this, "安装结束...", "提示", false, UIStyle.Blue);
+            Close();
         }
 
         /// <summary>
@@ -467,7 +485,7 @@ namespace _7DaysToDieUtils.View
                 var isOk = UIMessageDialog.ShowAskDialog(this, "有任务正在进行中, 是否关闭 ?");
                 if (isOk)
                 {
-                    _SyncContext.Post(ShowDialog, "清理安装残留数据中, 请稍候...");
+                    _SyncContext.Post(ShowLoading, "清理安装残留数据中, 请稍候...");
 
                     if (DownloadClient != null && DownloadClient.IsBusy)
                     {
@@ -493,7 +511,7 @@ namespace _7DaysToDieUtils.View
                                 FileUtils.DeleteDirectory(configPath);
                             }
 
-                            _SyncContext.Post(HideDialog, null);
+                            _SyncContext.Post(HideLoading, null);
                             break;
                         }
                         catch
@@ -506,7 +524,8 @@ namespace _7DaysToDieUtils.View
                         }
                     }
                     e.Cancel = false;
-                } else
+                }
+                else
                 {
                     e.Cancel = true;
                 }

@@ -1,4 +1,5 @@
 ﻿using _7DaysToDieUtils.Entity;
+using _7DaysToDieUtils.Model;
 using _7DaysToDieUtils.Utils;
 using _7DaysToDieUtils.View;
 using Sunny.UI;
@@ -11,20 +12,22 @@ using System.Windows.Forms;
 
 namespace _7DaysToDieUtils
 {
-    public partial class Root : UIForm
+    public partial class RootForm : UIForm
     {
-        readonly SynchronizationContext SyncContext = null;
+        readonly SynchronizationContext _SyncContext = null;
         readonly List<Control> AllBtns = new List<Control>();
 
         private readonly ConfigEntity _ConfigEntity = new ConfigEntity();
+        private readonly RootModel RootModel;
 
-        public Root()
+        public RootForm()
         {
             InitializeComponent();
             Init_AllBtnView();
 
+            RootModel = new RootModel(this);
             _ConfigEntity = DataUtils.LoadConfig();
-            SyncContext = SynchronizationContext.Current;
+            _SyncContext = SynchronizationContext.Current;
         }
 
         private void Init_AllBtnView()
@@ -36,13 +39,13 @@ namespace _7DaysToDieUtils
             AllBtns.Add(UnInstAll_Btn);
         }
 
-        private void ShowDialog(object obj)
+        private void ShowProgress(object obj)
         {
             Loading_Progress.Visible = true;
             AllBtns.ForEach(t => t.Enabled = false);
         }
 
-        private void HideDialog(object obj)
+        private void HideProgress(object obj)
         {
             Loading_Progress.Visible = false;
             AllBtns.ForEach(t => t.Enabled = true);
@@ -128,7 +131,7 @@ namespace _7DaysToDieUtils
                 var currnetDate = DateTime.Now.ToString(("yyyy年MM月dd日hh时mm分ss秒"));
                 string savePath = disktopPath + "\\Save-" + currnetDate + ".zip";
 
-                SyncContext.Post(ShowDialog, null);
+                _SyncContext.Post(ShowProgress, null);
                 if (File.Exists(savePath))
                 {
                     if (MessageBox.Show("备份文件已存在, 是否删除并备份? ", "提示: ", MessageBoxButtons.OKCancel) == DialogResult.OK)
@@ -139,7 +142,7 @@ namespace _7DaysToDieUtils
                     else
                     {
                         MessageBox.Show("备份终止 !");
-                        SyncContext.Post(HideDialog, null);
+                        _SyncContext.Post(HideProgress, null);
                         return;
                     }
                 }
@@ -153,17 +156,18 @@ namespace _7DaysToDieUtils
                     Directory.Delete(gameSavePath, true);
                 }
 
-                SyncContext.Post(HideDialog, null);
+                _SyncContext.Post(HideProgress, null);
 
                 bool isCheckDir = DialogUtils.ShowAskDialog("备份成功, 是否查看备份后的存档位置 ?");
                 if (isCheckDir)
                 {
                     FileUtils.OpenFolderAndSelectFile(savePath);
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 DialogUtils.ShowErrorDialog(ex);
-                SyncContext.Post(HideDialog, null);
+                _SyncContext.Post(HideProgress, null);
             }
         }
 
@@ -174,72 +178,11 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void UnInstall_Btn_Click(object sender, EventArgs e)
         {
-            var thread = new Thread(() => UninstallMods());
-            thread.Start();
-        }
-
-        /// <summary>
-        /// 卸载所有Mod
-        /// </summary>
-        private void UninstallMods()
-        {
-            SyncContext.Post(ShowDialog, null);
-
-            string path = _ConfigEntity.GamePath;
-
-            var modPath = path + "\\Mods";
-            if (Directory.Exists(modPath))
+            _SyncContext.Post(ShowProgress, null);
+            RootModel.UninstallMods(_ConfigEntity.GamePath, (object _) =>
             {
-                var isDelete = UIMessageDialog.ShowAskDialog(
-                    this, "是否删除Mods文件夹?"
-                );
-                if (isDelete)
-                {
-                    FileUtils.DeleteDirectory(modPath);
-                }
-            }
-
-            var worldPath = path + "\\Data\\Worlds";
-            if (Directory.Exists(worldPath))
-            {
-                var isDelete = UIMessageDialog.ShowAskDialog(
-                    this, "是否删除地图文件?"
-                );
-                if (isDelete)
-                {
-                    FileUtils.DeleteDirectory(worldPath);
-                }
-            }
-
-            var dataPath = path + "\\7DaysToDie_Data\\Managed";
-            if (Directory.Exists(dataPath))
-            {
-                var thread = new Thread(() => ReplaceDll(dataPath));
-                thread.Start();
-            }
-            SyncContext.Post(HideDialog, null);
-
-            UIMessageDialog.ShowMessageDialog(
-                this, "卸载成功 !", "提示", false, UIStyle.Blue
-            );
-        }
-
-        /// <summary>
-        /// 替换白名单
-        /// </summary>
-        private void ReplaceDll(string dataPath)
-        {
-            SyncContext.Post(ShowDialog, null);
-            var dllName = "Assembly-CSharp.dll";
-            var dllPath = dataPath + "\\" + dllName;
-            if (File.Exists(dllPath))
-            {
-                File.Delete(dllPath);
-            }
-
-            var csharpBytes = Properties.Resources.Assembly_CSharp;
-            File.WriteAllBytes(dllPath, csharpBytes);
-            SyncContext.Post(HideDialog, null);
+                _SyncContext.Post(HideProgress, null);
+            });
         }
 
         /// <summary>
@@ -249,7 +192,7 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void InstallJiuRi_Btn_Click(object sender, EventArgs e)
         {
-            var modList = new JiuriModsList();
+            var modList = new JiuriModsListForm();
             modList.ShowDialog();
         }
 
@@ -260,7 +203,7 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void Install_Other_Click(object sender, EventArgs e)
         {
-            var modList = new OtherModsList();
+            var modList = new OtherModsListForm();
             modList.ShowDialog();
         }
 
@@ -300,7 +243,7 @@ namespace _7DaysToDieUtils
         {
             try
             {
-                SyncContext.Post(ShowDialog, null);
+                _SyncContext.Post(ShowProgress, null);
 
                 // 获取存档根目录
                 string gameSavesBasePath = DataUtils.GetGameSaveBasePath();
@@ -324,7 +267,7 @@ namespace _7DaysToDieUtils
                 if (!Directory.Exists(unzipSavePath))
                 {
                     DialogUtils.ShowMessageDialog("存档文件错误, 未发现Save文件夹, 请选择正确的存档文件 !");
-                    SyncContext.Post(HideDialog, null);
+                    _SyncContext.Post(HideProgress, null);
                     return;
                 }
 
@@ -349,13 +292,13 @@ namespace _7DaysToDieUtils
                 // 删除解压出来的文件
                 FileUtils.DeleteDirectory(unzipPath);
 
-                SyncContext.Post(HideDialog, null);
+                _SyncContext.Post(HideProgress, null);
 
                 DialogUtils.ShowMessageDialog("还原存档结束 !");
             }
             catch (Exception ex)
             {
-                SyncContext.Post(HideDialog, null);
+                _SyncContext.Post(HideProgress, null);
                 DialogUtils.ShowErrorDialog(ex);
             }
         }

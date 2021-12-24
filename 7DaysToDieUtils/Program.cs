@@ -13,7 +13,7 @@ namespace _7DaysToDieUtils
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Init());
+            Application.Run(new InitForm());
         }
     }
 }

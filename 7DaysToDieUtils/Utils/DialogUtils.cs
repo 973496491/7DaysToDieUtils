@@ -9,8 +9,8 @@ namespace _7DaysToDieUtils.Utils
         {
             UIMessageDialog.ShowMessageDialog(
                 message,
-                "提示", 
-                false, 
+                "提示",
+                false,
                 UIStyle.Blue,
                 showMask: false,
                 topMost: true

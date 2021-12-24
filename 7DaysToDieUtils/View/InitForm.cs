@@ -1,5 +1,6 @@
 ﻿using _7DaysToDieUtils.Entity;
 using _7DaysToDieUtils.Utils;
+using _7DaysToDieUtils.View;
 using Sunny.UI;
 using System;
 using System.Drawing;
@@ -8,11 +9,11 @@ using System.Windows.Forms;
 
 namespace _7DaysToDieUtils
 {
-    public partial class Init : UIForm
+    public partial class InitForm : UIForm
     {
         private ConfigEntity _ConfigEntity = new ConfigEntity();
 
-        public Init()
+        public InitForm()
         {
             InitializeComponent();
             DataUtils.InitConfig();
@@ -27,7 +28,7 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void GoRoot_Btn_Click(object sender, EventArgs e)
         {
-            var root = new Root();
+            var root = new RootForm();
             root.Show();
             this.Hide();
         }
@@ -40,7 +41,7 @@ namespace _7DaysToDieUtils
         private void InitGame_Btn_Click(object sender, EventArgs e)
         {
             UIMessageDialog.ShowMessageDialog(
-                this, 
+                this,
                 "请选择七日杀安装目录~~",
                 "提示",
                 false,
@@ -48,7 +49,7 @@ namespace _7DaysToDieUtils
             );
 
             string path = FileUtils.GetSelectFolderPath(
-                desc: "请选择七日杀安装目录~~"    
+                desc: "请选择七日杀安装目录~~"
             );
             if (!Directory.Exists(path))
             {
@@ -94,6 +95,17 @@ namespace _7DaysToDieUtils
                 GameStatus_Label.ForeColor = Color.Red;
                 GoRoot_Btn.Enabled = false;
             }
+        }
+
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Login_Btn_Click(object sender, EventArgs e)
+        {
+            var loginForm = new LoginForm();
+            loginForm.ShowDialog();
         }
     }
 }

@@ -18,13 +18,13 @@ namespace _7DaysToDieUtils.Utils
 
         private static QCloudCosUtils _QCloudCosUtils;
 
-        
+
         private static readonly string REGION = "ap-shanghai"; //设置一个默认的存储桶地域
         //"云 API 密钥 ";
         private static readonly string SECRET_ID = "AKIDOgokTzHMCoCNIxMWQ5WlmZ7RXQ6WjhQu";
         //"云 API 密钥";
-        private static readonly string SECRET_KEY = "IL9i4D8qLdiYR8bprfEYcUAcpoZ6OTLz"; 
-        private static readonly long  DURATION_SECOND = 600;  //每次请求签名有效时长，单位为秒
+        private static readonly string SECRET_KEY = "IL9i4D8qLdiYR8bprfEYcUAcpoZ6OTLz";
+        private static readonly long DURATION_SECOND = 600;  //每次请求签名有效时长，单位为秒
 
         // 储存空间名
         private static readonly string WORKSPACE_NAME = "jiurizhipeizhe";
@@ -32,7 +32,7 @@ namespace _7DaysToDieUtils.Utils
         private static readonly string APPID = "1300866055";
         // 储存桶
         private static readonly string BUCKET = WORKSPACE_NAME + "-" + APPID;
-         
+
         private CosXml CosXml;
 
         private QCloudCosUtils() { }
@@ -111,8 +111,8 @@ namespace _7DaysToDieUtils.Utils
         /// <param name="cosPath">对象在存储桶中的位置标识符，即称对象键</param>
         /// <param name="savePath">本地存储路径</param>
         public async Task DownloadObjectAsync(
-            string cosPath, 
-            string savePath, 
+            string cosPath,
+            string savePath,
             string fileName,
             Action<string> process
         )

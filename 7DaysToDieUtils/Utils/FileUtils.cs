@@ -35,7 +35,8 @@ namespace _7DaysToDieUtils
                         try
                         {
                             form.Invoke(downloadProgressChanged, e.ProgressPercentage);
-                        } catch (Exception ex)
+                        }
+                        catch (Exception ex)
                         {
                             Debug.WriteLine(ex.Message);
                         }
@@ -49,10 +50,11 @@ namespace _7DaysToDieUtils
                     try
                     {
                         form.Invoke(downloadFileCompleted);
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         Debug.WriteLine(ex.Message);
-                    } 
+                    }
                 };
             }
             client.DownloadFileAsync(new Uri(url), savefile);

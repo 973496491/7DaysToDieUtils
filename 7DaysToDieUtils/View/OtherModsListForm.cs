@@ -11,7 +11,7 @@ using static COSXML.Model.Tag.ListBucket;
 
 namespace _7DaysToDieUtils.View
 {
-    public partial class OtherModsList : UIForm
+    public partial class OtherModsListForm : UIForm
     {
         private readonly SynchronizationContext _SyncContext = null;
         private readonly HashSet<ModEntity> SelectMods = new HashSet<ModEntity>();
@@ -19,7 +19,7 @@ namespace _7DaysToDieUtils.View
         private readonly List<(string, string)> DownloadInfo = new List<(string, string)>();
         private readonly ConfigEntity _ConfigEntity = new ConfigEntity();
 
-        public OtherModsList()
+        public OtherModsListForm()
         {
             InitializeComponent();
 

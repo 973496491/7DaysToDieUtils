@@ -2,6 +2,7 @@
 {
     class ConfigEntity
     {
+        public string UserName;
         public string GamePath;
         public bool IsInit;
     }

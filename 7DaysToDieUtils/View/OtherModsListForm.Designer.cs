@@ -1,7 +1,7 @@
 ﻿
 namespace _7DaysToDieUtils.View
 {
-    partial class OtherModsList
+    partial class OtherModsListForm
     {
         /// <summary>
         /// Required designer variable.

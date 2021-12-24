@@ -1,7 +1,7 @@
 ﻿
 namespace _7DaysToDieUtils
 {
-    partial class Root
+    partial class RootForm
     {
         /// <summary>
         /// 必需的设计器变量。

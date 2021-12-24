@@ -1,7 +1,6 @@
-﻿
-namespace _7DaysToDieUtils.View
+﻿namespace _7DaysToDieUtils.View
 {
-    partial class JiuriModsList
+    partial class DllListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -35,31 +34,24 @@ namespace _7DaysToDieUtils.View
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Mods_GridView = new Sunny.UI.UIDataGridView();
-            this.StartInstall_Btn = new Sunny.UI.UIButton();
-            this.Loading_Progress = new Sunny.UI.UIProgressIndicator();
+            this.DLLs_GridView = new Sunny.UI.UIDataGridView();
             this.StatusText_Label = new Sunny.UI.UILabel();
+            this.Loading_Progress = new Sunny.UI.UIProgressIndicator();
+            this.Rollback_Btn = new Sunny.UI.UIButton();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.size = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.Mods_GridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DLLs_GridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridViewTextBoxColumn1
+            // DLLs_GridView
             // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Tag";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Tag";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // Mods_GridView
-            // 
-            this.Mods_GridView.AllowUserToAddRows = false;
-            this.Mods_GridView.AllowUserToDeleteRows = false;
+            this.DLLs_GridView.AllowUserToAddRows = false;
+            this.DLLs_GridView.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.Mods_GridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.Mods_GridView.BackgroundColor = System.Drawing.Color.White;
-            this.Mods_GridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.DLLs_GridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.DLLs_GridView.BackgroundColor = System.Drawing.Color.White;
+            this.DLLs_GridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -67,10 +59,10 @@ namespace _7DaysToDieUtils.View
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Mods_GridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.Mods_GridView.ColumnHeadersHeight = 32;
-            this.Mods_GridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.Mods_GridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DLLs_GridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.DLLs_GridView.ColumnHeadersHeight = 32;
+            this.DLLs_GridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.DLLs_GridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.name,
             this.size,
             this.select});
@@ -81,12 +73,13 @@ namespace _7DaysToDieUtils.View
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Mods_GridView.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Mods_GridView.EnableHeadersVisualStyles = false;
-            this.Mods_GridView.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Mods_GridView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            this.Mods_GridView.Location = new System.Drawing.Point(3, 38);
-            this.Mods_GridView.Name = "Mods_GridView";
+            this.DLLs_GridView.DefaultCellStyle = dataGridViewCellStyle4;
+            this.DLLs_GridView.EnableHeadersVisualStyles = false;
+            this.DLLs_GridView.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.DLLs_GridView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.DLLs_GridView.Location = new System.Drawing.Point(3, 38);
+            this.DLLs_GridView.MultiSelect = false;
+            this.DLLs_GridView.Name = "DLLs_GridView";
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -94,29 +87,26 @@ namespace _7DaysToDieUtils.View
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Mods_GridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.DLLs_GridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            this.Mods_GridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.Mods_GridView.RowTemplate.Height = 23;
-            this.Mods_GridView.SelectedIndex = -1;
-            this.Mods_GridView.ShowGridLine = true;
-            this.Mods_GridView.Size = new System.Drawing.Size(794, 409);
-            this.Mods_GridView.TabIndex = 1;
-            this.Mods_GridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Mods_GridView_CellValueChanged);
-            this.Mods_GridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.Mods_GridView_CurrentCellDirtyStateChanged);
+            this.DLLs_GridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.DLLs_GridView.RowTemplate.Height = 23;
+            this.DLLs_GridView.SelectedIndex = -1;
+            this.DLLs_GridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DLLs_GridView.ShowGridLine = true;
+            this.DLLs_GridView.Size = new System.Drawing.Size(794, 409);
+            this.DLLs_GridView.TabIndex = 2;
+            this.DLLs_GridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DLLs_GridView_CellClick);
             // 
-            // StartInstall_Btn
+            // StatusText_Label
             // 
-            this.StartInstall_Btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.StartInstall_Btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.StartInstall_Btn.IsScaled = false;
-            this.StartInstall_Btn.Location = new System.Drawing.Point(697, 471);
-            this.StartInstall_Btn.MinimumSize = new System.Drawing.Size(1, 1);
-            this.StartInstall_Btn.Name = "StartInstall_Btn";
-            this.StartInstall_Btn.Size = new System.Drawing.Size(100, 35);
-            this.StartInstall_Btn.TabIndex = 101;
-            this.StartInstall_Btn.Text = "开始安装";
-            this.StartInstall_Btn.Click += new System.EventHandler(this.StartInstall_Btn_Click);
+            this.StatusText_Label.Font = new System.Drawing.Font("微软雅黑", 13F);
+            this.StatusText_Label.Location = new System.Drawing.Point(66, 473);
+            this.StatusText_Label.Name = "StatusText_Label";
+            this.StatusText_Label.Size = new System.Drawing.Size(583, 35);
+            this.StatusText_Label.TabIndex = 106;
+            this.StatusText_Label.Text = "Waiting......";
+            this.StatusText_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Loading_Progress
             // 
@@ -126,22 +116,25 @@ namespace _7DaysToDieUtils.View
             this.Loading_Progress.BackColor = System.Drawing.Color.Transparent;
             this.Loading_Progress.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Loading_Progress.IsScaled = false;
-            this.Loading_Progress.Location = new System.Drawing.Point(-1, 459);
+            this.Loading_Progress.Location = new System.Drawing.Point(0, 461);
             this.Loading_Progress.MinimumSize = new System.Drawing.Size(1, 1);
             this.Loading_Progress.Name = "Loading_Progress";
-            this.Loading_Progress.Size = new System.Drawing.Size(55, 55);
-            this.Loading_Progress.TabIndex = 102;
+            this.Loading_Progress.Size = new System.Drawing.Size(53, 57);
+            this.Loading_Progress.TabIndex = 105;
             this.Loading_Progress.Text = "uiProgressIndicator1";
             // 
-            // StatusText_Label
+            // Rollback_Btn
             // 
-            this.StatusText_Label.Font = new System.Drawing.Font("微软雅黑", 13F);
-            this.StatusText_Label.Location = new System.Drawing.Point(65, 471);
-            this.StatusText_Label.Name = "StatusText_Label";
-            this.StatusText_Label.Size = new System.Drawing.Size(583, 35);
-            this.StatusText_Label.TabIndex = 103;
-            this.StatusText_Label.Text = "Waiting......";
-            this.StatusText_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Rollback_Btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Rollback_Btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Rollback_Btn.IsScaled = false;
+            this.Rollback_Btn.Location = new System.Drawing.Point(697, 473);
+            this.Rollback_Btn.MinimumSize = new System.Drawing.Size(1, 1);
+            this.Rollback_Btn.Name = "Rollback_Btn";
+            this.Rollback_Btn.Size = new System.Drawing.Size(100, 35);
+            this.Rollback_Btn.TabIndex = 104;
+            this.Rollback_Btn.Text = "回滚补丁";
+            this.Rollback_Btn.Click += new System.EventHandler(this.Rollback_Btn_Click);
             // 
             // name
             // 
@@ -174,34 +167,31 @@ namespace _7DaysToDieUtils.View
             this.select.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.select.HeaderText = "选择";
             this.select.Name = "select";
+            this.select.ReadOnly = true;
             this.select.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // JiuriModsList
+            // DllListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 528);
+            this.ClientSize = new System.Drawing.Size(800, 530);
             this.Controls.Add(this.StatusText_Label);
             this.Controls.Add(this.Loading_Progress);
-            this.Controls.Add(this.StartInstall_Btn);
-            this.Controls.Add(this.Mods_GridView);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "JiuriModsList";
-            this.Text = "Mod列表";
-            this.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Status_Label_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.Mods_GridView)).EndInit();
+            this.Controls.Add(this.Rollback_Btn);
+            this.Controls.Add(this.DLLs_GridView);
+            this.Name = "DllListForm";
+            this.Text = "DllListFrom";
+            ((System.ComponentModel.ISupportInitialize)(this.DLLs_GridView)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private Sunny.UI.UIDataGridView Mods_GridView;
-        private Sunny.UI.UIButton StartInstall_Btn;
-        private Sunny.UI.UIProgressIndicator Loading_Progress;
+
+        private Sunny.UI.UIDataGridView DLLs_GridView;
         private Sunny.UI.UILabel StatusText_Label;
+        private Sunny.UI.UIProgressIndicator Loading_Progress;
+        private Sunny.UI.UIButton Rollback_Btn;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn size;
         private System.Windows.Forms.DataGridViewCheckBoxColumn select;
