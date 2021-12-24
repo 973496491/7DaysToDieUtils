@@ -302,5 +302,10 @@ namespace _7DaysToDieUtils
                 DialogUtils.ShowErrorDialog(ex);
             }
         }
+
+        private void Other_Btn_Click(object sender, EventArgs e)
+        {
+            RootModel.EnterQQRoom();
+        }
     }
 }

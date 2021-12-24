@@ -83,6 +83,16 @@ namespace _7DaysToDieUtils.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        public static System.Drawing.Bitmap Icon_Enter_QQ_Rooms {
+            get {
+                object obj = ResourceManager.GetObject("Icon_Enter_QQ_Rooms", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         public static System.Drawing.Bitmap Icon_Install_Other {
             get {
                 object obj = ResourceManager.GetObject("Icon_Install_Other", resourceCulture);

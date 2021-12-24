@@ -166,6 +166,12 @@
     <Compile Include="View\OtherModsListForm.Designer.cs">
       <DependentUpon>OtherModsListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\QQRoomsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\QQRoomsForm.Designer.cs">
+      <DependentUpon>QQRoomsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\RootForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\OtherModsListForm.resx">
       <DependentUpon>OtherModsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\QQRoomsForm.resx">
+      <DependentUpon>QQRoomsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\RootForm.resx">
       <DependentUpon>RootForm.cs</DependentUpon>
@@ -226,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon_Logo.ico" />
+    <None Include="Resources\Icon_Enter_QQ_Rooms.png" />
     <None Include="Resources\Icon_InstallLargeMod.png" />
     <None Include="Resources\Icon_ReductionSave.png" />
     <None Include="Resources\Icon_ReductionOnlySave.png" />

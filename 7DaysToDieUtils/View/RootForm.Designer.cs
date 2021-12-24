@@ -75,14 +75,15 @@ namespace _7DaysToDieUtils
             // Other_Btn
             // 
             this.Other_Btn.BackColor = System.Drawing.Color.Transparent;
-            this.Other_Btn.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_NoMore_Option;
-            this.Other_Btn.Location = new System.Drawing.Point(626, 566);
+            this.Other_Btn.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_Enter_QQ_Rooms;
+            this.Other_Btn.Location = new System.Drawing.Point(784, 566);
             this.Other_Btn.Margin = new System.Windows.Forms.Padding(0);
             this.Other_Btn.Name = "Other_Btn";
-            this.Other_Btn.Size = new System.Drawing.Size(348, 52);
+            this.Other_Btn.Size = new System.Drawing.Size(190, 52);
             this.Other_Btn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.Other_Btn.TabIndex = 5;
             this.Other_Btn.TabStop = false;
+            this.Other_Btn.Click += new System.EventHandler(this.Other_Btn_Click);
             // 
             // UnInstAll_Btn
             // 
@@ -152,7 +153,7 @@ namespace _7DaysToDieUtils
             this.Loading_Progress.Text = "uiProgressIndicator1";
             this.Loading_Progress.Visible = false;
             // 
-            // Root
+            // RootForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -169,7 +170,7 @@ namespace _7DaysToDieUtils
             this.Controls.Add(this.SaveOnlyDataBtn);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Root";
+            this.Name = "RootForm";
             this.Text = "七日杀工具";
             this.TextAlignment = System.Drawing.StringAlignment.Center;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Root_FormClosed);

@@ -15,6 +15,11 @@ namespace _7DaysToDieUtils.Model
             Form = form;
         }
 
+        /// <summary>
+        /// 卸载Mod
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="progress"></param>
         public void UninstallMods(string path, Action<object> progress)
         {
             var thread = new Thread(() => Uninstall(path, progress));
@@ -22,6 +27,11 @@ namespace _7DaysToDieUtils.Model
             thread.Start();
         }
 
+        /// <summary>
+        /// 卸载Mod
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="progress"></param>
         private void Uninstall(string path, Action<object> progress)
         {
             // 删除Mods
@@ -49,6 +59,15 @@ namespace _7DaysToDieUtils.Model
             }
             DialogUtils.ShowMessageDialog("卸载成功~!");
             Form.Invoke(progress, new object());
+        }
+
+        /// <summary>
+        /// 加入QQ群
+        /// </summary>
+        public void EnterQQRoom()
+        {
+            var form = new QQRoomsForm();
+            form.ShowDialog();
         }
     }
 }
