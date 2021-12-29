@@ -124,6 +124,7 @@ namespace _7DaysToDieUtils.Model
             UserInfo userInfo = UserInfo.GetInstance();
             userInfo.GamePath = entity.GamePath;
             userInfo.UserName = entity.UserName;
+            userInfo.IsAdmin = entity.Admin;
             userInfo.FastDownloadCount = entity.FastDownloadCount;
         }
     }

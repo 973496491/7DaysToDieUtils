@@ -1,7 +1,6 @@
 ﻿using _7DaysToDieUtils.Const;
 using _7DaysToDieUtils.Entity;
 using _7DaysToDieUtils.Model;
-using _7DaysToDieUtils.Utils;
 using Sunny.UI;
 using System.Threading;
 using System.Windows.Forms;
@@ -70,9 +69,9 @@ namespace _7DaysToDieUtils.View
             LoginModel.GetUserInfo((object obj) =>
             {
                 _SyncContext.Post(HideLoading, null);
-                if (obj is UserInfoEntity)
+                if (obj is UserInfoEntity entity)
                 {
-                    LoginModel.SaveUserInfo((UserInfoEntity)obj);
+                    LoginModel.SaveUserInfo(entity);
                     Close();
                 }
             });

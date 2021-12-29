@@ -1,8 +1,6 @@
 ﻿using _7DaysToDieUtils.Entity;
 using _7DaysToDieUtils.Model;
-using _7DaysToDieUtils.Utils;
 using Sunny.UI;
-using System.Collections.Generic;
 using System.Threading;
 
 namespace _7DaysToDieUtils.View
@@ -10,7 +8,7 @@ namespace _7DaysToDieUtils.View
     public partial class DllListForm : UIForm
     {
         private readonly SynchronizationContext _SyncContext = null;
-        private DllListModel Model;
+        private readonly DllListModel Model;
 
         private int SelectIndex = 0;
 
@@ -67,7 +65,7 @@ namespace _7DaysToDieUtils.View
         {
             System.Threading.Tasks.Task task = Model.RollbackDllAsync(SelectIndex, (progress) =>
             {
-                _SyncContext.Post(ShowLoading, "正在下载补丁中. (" + progress+ ")");
+                _SyncContext.Post(ShowLoading, "正在下载补丁中. (" + progress + ")");
             });
         }
 

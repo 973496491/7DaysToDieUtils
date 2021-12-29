@@ -1,5 +1,4 @@
 ﻿using _7DaysToDieUtils.Cons;
-using _7DaysToDieUtils.Const;
 using _7DaysToDieUtils.Utils;
 using Sunny.UI;
 
@@ -15,6 +14,7 @@ namespace _7DaysToDieUtils.View
 
         private void InitQQRooms()
         {
+            Rooms_GridView.RowTemplate.Height = 40;
             foreach ((string, string) item in CommonConst.QQ_ROOMS)
             {
                 int index = Rooms_GridView.Rows.Add();

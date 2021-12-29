@@ -303,9 +303,26 @@ namespace _7DaysToDieUtils
             }
         }
 
+        /// <summary>
+        /// 加入QQ群
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Other_Btn_Click(object sender, EventArgs e)
         {
-            RootModel.EnterQQRoom();
+            var form = new QQRoomsForm();
+            form.ShowDialog();
+        }
+
+        /// <summary>
+        /// 攻略
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Helper_Btn_Click(object sender, EventArgs e)
+        {
+            var form = new HelperForm();
+            form.ShowDialog();
         }
     }
 }

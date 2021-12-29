@@ -23,7 +23,7 @@ namespace _7DaysToDieUtils.View
         private readonly List<ModEntity> SelectMods = new List<ModEntity>();
         private readonly ConfigEntity _ConfigEntity = new ConfigEntity();
 
-        private JiuRiModsListModel Model;
+        private readonly JiuRiModsListModel Model;
 
         private List<ModEntity> ModList = new List<ModEntity>();
         private WebClient DownloadClient;
@@ -454,7 +454,8 @@ namespace _7DaysToDieUtils.View
 
                 UserInfo.GetInstance().FastDownloadCount--;
 
-                Model.UploadDownloadCount((_) => {
+                Model.UploadDownloadCount((_) =>
+                {
                     _SyncContext.Post(HideLoading, null);
                     InstallFinish();
                 });

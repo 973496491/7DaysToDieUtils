@@ -127,13 +127,19 @@
     <Compile Include="Base\BaseEntity.cs" />
     <Compile Include="Entity\DllEntity.cs" />
     <Compile Include="Entity\GetUserInfoEntity.cs" />
+    <Compile Include="Entity\ItemTabEntity.cs" />
+    <Compile Include="Entity\DeleteMapInfoReq.cs" />
     <Compile Include="Entity\LoginReq.cs" />
     <Compile Include="Entity\ModEntity.cs" />
     <Compile Include="Entity\ConfigEntity.cs" />
     <Compile Include="Entity\SubtractDownloadCountEntity.cs" />
+    <Compile Include="Entity\UploadImageReq.cs" />
+    <Compile Include="Entity\UploadMapInfoReq.cs" />
     <Compile Include="Entity\UserInfoEntity.cs" />
     <Compile Include="Entity\UserTokenResp.cs" />
     <Compile Include="Model\DllListModel.cs" />
+    <Compile Include="Model\HelperModel.cs" />
+    <Compile Include="Model\ItemNodeModel.cs" />
     <Compile Include="Model\JiuRiModsListModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\RootModel.cs" />
@@ -142,11 +148,24 @@
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Http\HttpApi.cs" />
     <Compile Include="Http\QCloudCosUtils.cs" />
+    <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="View\DllListFrom.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\DllListFrom.Designer.cs">
       <DependentUpon>DllListFrom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\HelperForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\HelperForm.Designer.cs">
+      <DependentUpon>HelperForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ItemNodePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ItemNodePage.Designer.cs">
+      <DependentUpon>ItemNodePage.cs</DependentUpon>
     </Compile>
     <Compile Include="View\JiuRiModsListForm.cs">
       <SubType>Form</SubType>
@@ -188,6 +207,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="View\DllListFrom.resx">
       <DependentUpon>DllListFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\HelperForm.resx">
+      <DependentUpon>HelperForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ItemNodePage.resx">
+      <DependentUpon>ItemNodePage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\JiuRiModsListForm.resx">
       <DependentUpon>JiuRiModsListForm.cs</DependentUpon>
@@ -235,6 +260,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon_Logo.ico" />
+    <None Include="Resources\Icon_Helper.png" />
     <None Include="Resources\Icon_Enter_QQ_Rooms.png" />
     <None Include="Resources\Icon_InstallLargeMod.png" />
     <None Include="Resources\Icon_ReductionSave.png" />

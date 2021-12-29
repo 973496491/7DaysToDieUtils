@@ -1,5 +1,4 @@
-﻿using _7DaysToDieUtils.Cache;
-using _7DaysToDieUtils.Const;
+﻿using _7DaysToDieUtils.Const;
 using _7DaysToDieUtils.Entity;
 using _7DaysToDieUtils.Utils;
 using _7DaysToDieUtils.View;

@@ -60,14 +60,5 @@ namespace _7DaysToDieUtils.Model
             DialogUtils.ShowMessageDialog("卸载成功~!");
             Form.Invoke(progress, new object());
         }
-
-        /// <summary>
-        /// 加入QQ群
-        /// </summary>
-        public void EnterQQRoom()
-        {
-            var form = new QQRoomsForm();
-            form.ShowDialog();
-        }
     }
 }

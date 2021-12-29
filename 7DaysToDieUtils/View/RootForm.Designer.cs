@@ -29,28 +29,31 @@ namespace _7DaysToDieUtils
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RootForm));
             this.SaveOnlyDataBtn = new System.Windows.Forms.PictureBox();
             this.SaveAllDataBtn = new System.Windows.Forms.PictureBox();
-            this.Other_Btn = new System.Windows.Forms.PictureBox();
+            this.Helper_Btn = new System.Windows.Forms.PictureBox();
             this.UnInstAll_Btn = new System.Windows.Forms.PictureBox();
             this.Install_Other = new System.Windows.Forms.PictureBox();
             this.InstallJiuRi_Btn = new System.Windows.Forms.PictureBox();
             this.ReductionAllSave_Btn = new System.Windows.Forms.PictureBox();
             this.Loading_Progress = new Sunny.UI.UIProgressIndicator();
+            this.Other_Btn = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.SaveOnlyDataBtn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SaveAllDataBtn)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Other_Btn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Helper_Btn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UnInstAll_Btn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Install_Other)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstallJiuRi_Btn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReductionAllSave_Btn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Other_Btn)).BeginInit();
             this.SuspendLayout();
             // 
             // SaveOnlyDataBtn
             // 
             this.SaveOnlyDataBtn.BackColor = System.Drawing.Color.Transparent;
             this.SaveOnlyDataBtn.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_SaveOnlyWorld;
-            this.SaveOnlyDataBtn.Location = new System.Drawing.Point(713, 326);
+            this.SaveOnlyDataBtn.Location = new System.Drawing.Point(713, 300);
             this.SaveOnlyDataBtn.Margin = new System.Windows.Forms.Padding(0);
             this.SaveOnlyDataBtn.Name = "SaveOnlyDataBtn";
             this.SaveOnlyDataBtn.Size = new System.Drawing.Size(261, 52);
@@ -63,7 +66,7 @@ namespace _7DaysToDieUtils
             // 
             this.SaveAllDataBtn.BackColor = System.Drawing.Color.Transparent;
             this.SaveAllDataBtn.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_SaveAllWorld;
-            this.SaveAllDataBtn.Location = new System.Drawing.Point(713, 413);
+            this.SaveAllDataBtn.Location = new System.Drawing.Point(713, 375);
             this.SaveAllDataBtn.Margin = new System.Windows.Forms.Padding(0);
             this.SaveAllDataBtn.Name = "SaveAllDataBtn";
             this.SaveAllDataBtn.Size = new System.Drawing.Size(261, 52);
@@ -72,24 +75,24 @@ namespace _7DaysToDieUtils
             this.SaveAllDataBtn.TabStop = false;
             this.SaveAllDataBtn.Click += new System.EventHandler(this.SaveAllDataBtn_Click);
             // 
-            // Other_Btn
+            // Helper_Btn
             // 
-            this.Other_Btn.BackColor = System.Drawing.Color.Transparent;
-            this.Other_Btn.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_Enter_QQ_Rooms;
-            this.Other_Btn.Location = new System.Drawing.Point(784, 566);
-            this.Other_Btn.Margin = new System.Windows.Forms.Padding(0);
-            this.Other_Btn.Name = "Other_Btn";
-            this.Other_Btn.Size = new System.Drawing.Size(190, 52);
-            this.Other_Btn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.Other_Btn.TabIndex = 5;
-            this.Other_Btn.TabStop = false;
-            this.Other_Btn.Click += new System.EventHandler(this.Other_Btn_Click);
+            this.Helper_Btn.BackColor = System.Drawing.Color.Transparent;
+            this.Helper_Btn.Image = ((System.Drawing.Image)(resources.GetObject("Helper_Btn.Image")));
+            this.Helper_Btn.Location = new System.Drawing.Point(790, 527);
+            this.Helper_Btn.Margin = new System.Windows.Forms.Padding(0);
+            this.Helper_Btn.Name = "Helper_Btn";
+            this.Helper_Btn.Size = new System.Drawing.Size(184, 52);
+            this.Helper_Btn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.Helper_Btn.TabIndex = 5;
+            this.Helper_Btn.TabStop = false;
+            this.Helper_Btn.Click += new System.EventHandler(this.Helper_Btn_Click);
             // 
             // UnInstAll_Btn
             // 
             this.UnInstAll_Btn.BackColor = System.Drawing.Color.Transparent;
             this.UnInstAll_Btn.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_Uninstall;
-            this.UnInstAll_Btn.Location = new System.Drawing.Point(713, 243);
+            this.UnInstAll_Btn.Location = new System.Drawing.Point(713, 225);
             this.UnInstAll_Btn.Margin = new System.Windows.Forms.Padding(0);
             this.UnInstAll_Btn.Name = "UnInstAll_Btn";
             this.UnInstAll_Btn.Size = new System.Drawing.Size(261, 52);
@@ -102,7 +105,7 @@ namespace _7DaysToDieUtils
             // 
             this.Install_Other.BackColor = System.Drawing.Color.Transparent;
             this.Install_Other.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_Install_Other;
-            this.Install_Other.Location = new System.Drawing.Point(713, 157);
+            this.Install_Other.Location = new System.Drawing.Point(713, 150);
             this.Install_Other.Margin = new System.Windows.Forms.Padding(0);
             this.Install_Other.Name = "Install_Other";
             this.Install_Other.Size = new System.Drawing.Size(261, 52);
@@ -115,7 +118,7 @@ namespace _7DaysToDieUtils
             // 
             this.InstallJiuRi_Btn.BackColor = System.Drawing.Color.Transparent;
             this.InstallJiuRi_Btn.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_InstallLargeMod;
-            this.InstallJiuRi_Btn.Location = new System.Drawing.Point(713, 73);
+            this.InstallJiuRi_Btn.Location = new System.Drawing.Point(713, 75);
             this.InstallJiuRi_Btn.Margin = new System.Windows.Forms.Padding(0);
             this.InstallJiuRi_Btn.Name = "InstallJiuRi_Btn";
             this.InstallJiuRi_Btn.Size = new System.Drawing.Size(261, 52);
@@ -128,7 +131,7 @@ namespace _7DaysToDieUtils
             // 
             this.ReductionAllSave_Btn.BackColor = System.Drawing.Color.Transparent;
             this.ReductionAllSave_Btn.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_ReductionSave;
-            this.ReductionAllSave_Btn.Location = new System.Drawing.Point(803, 495);
+            this.ReductionAllSave_Btn.Location = new System.Drawing.Point(803, 450);
             this.ReductionAllSave_Btn.Margin = new System.Windows.Forms.Padding(0);
             this.ReductionAllSave_Btn.Name = "ReductionAllSave_Btn";
             this.ReductionAllSave_Btn.Size = new System.Drawing.Size(171, 52);
@@ -148,10 +151,23 @@ namespace _7DaysToDieUtils
             this.Loading_Progress.Location = new System.Drawing.Point(484, 290);
             this.Loading_Progress.MinimumSize = new System.Drawing.Size(1, 1);
             this.Loading_Progress.Name = "Loading_Progress";
-            this.Loading_Progress.Size = new System.Drawing.Size(76, 76);
+            this.Loading_Progress.Size = new System.Drawing.Size(76, 113);
             this.Loading_Progress.TabIndex = 10;
             this.Loading_Progress.Text = "uiProgressIndicator1";
             this.Loading_Progress.Visible = false;
+            // 
+            // Other_Btn
+            // 
+            this.Other_Btn.BackColor = System.Drawing.Color.Transparent;
+            this.Other_Btn.Image = global::_7DaysToDieUtils.Properties.Resources.Icon_Enter_QQ_Rooms;
+            this.Other_Btn.Location = new System.Drawing.Point(784, 600);
+            this.Other_Btn.Margin = new System.Windows.Forms.Padding(0);
+            this.Other_Btn.Name = "Other_Btn";
+            this.Other_Btn.Size = new System.Drawing.Size(190, 52);
+            this.Other_Btn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.Other_Btn.TabIndex = 11;
+            this.Other_Btn.TabStop = false;
+            this.Other_Btn.Click += new System.EventHandler(this.Other_Btn_Click);
             // 
             // RootForm
             // 
@@ -159,13 +175,14 @@ namespace _7DaysToDieUtils
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackgroundImage = global::_7DaysToDieUtils.Properties.Resources.Icon_Background;
-            this.ClientSize = new System.Drawing.Size(1008, 643);
+            this.ClientSize = new System.Drawing.Size(1008, 680);
+            this.Controls.Add(this.Other_Btn);
             this.Controls.Add(this.Loading_Progress);
             this.Controls.Add(this.ReductionAllSave_Btn);
             this.Controls.Add(this.InstallJiuRi_Btn);
             this.Controls.Add(this.Install_Other);
             this.Controls.Add(this.UnInstAll_Btn);
-            this.Controls.Add(this.Other_Btn);
+            this.Controls.Add(this.Helper_Btn);
             this.Controls.Add(this.SaveAllDataBtn);
             this.Controls.Add(this.SaveOnlyDataBtn);
             this.MaximizeBox = false;
@@ -176,11 +193,12 @@ namespace _7DaysToDieUtils
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Root_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.SaveOnlyDataBtn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SaveAllDataBtn)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Other_Btn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Helper_Btn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UnInstAll_Btn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Install_Other)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstallJiuRi_Btn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReductionAllSave_Btn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Other_Btn)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -188,12 +206,13 @@ namespace _7DaysToDieUtils
         #endregion
         private System.Windows.Forms.PictureBox SaveOnlyDataBtn;
         private System.Windows.Forms.PictureBox SaveAllDataBtn;
-        private System.Windows.Forms.PictureBox Other_Btn;
+        private System.Windows.Forms.PictureBox Helper_Btn;
         private System.Windows.Forms.PictureBox UnInstAll_Btn;
         private System.Windows.Forms.PictureBox Install_Other;
         private System.Windows.Forms.PictureBox InstallJiuRi_Btn;
         private System.Windows.Forms.PictureBox ReductionAllSave_Btn;
         private Sunny.UI.UIProgressIndicator Loading_Progress;
+        private System.Windows.Forms.PictureBox Other_Btn;
     }
 }
 

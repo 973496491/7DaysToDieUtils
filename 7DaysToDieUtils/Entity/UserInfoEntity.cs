@@ -5,5 +5,7 @@
         public string GamePath { get; set; }
         public string UserName { get; set; }
         public int FastDownloadCount { get; set; }
+
+        public bool Admin { get; set; }
     }
 }

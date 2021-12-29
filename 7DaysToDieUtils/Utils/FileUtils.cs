@@ -177,11 +177,11 @@ namespace _7DaysToDieUtils
         /// </summary>
         public static void OpenFolderAndSelectFile(string fileName)
         {
-            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo("Explorer.exe")
+            ProcessStartInfo psi = new ProcessStartInfo("Explorer.exe")
             {
                 Arguments = "/e,/select," + fileName
             };
-            System.Diagnostics.Process.Start(psi);
+            Process.Start(psi);
         }
 
         /// <summary>

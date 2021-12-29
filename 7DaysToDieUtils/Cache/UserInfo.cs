@@ -20,5 +20,7 @@
         public string GamePath { get; set; }
 
         public int FastDownloadCount { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }
