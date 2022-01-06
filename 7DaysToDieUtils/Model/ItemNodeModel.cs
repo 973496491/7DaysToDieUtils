@@ -20,7 +20,7 @@ namespace _7DaysToDieUtils.Model
             Page = page;
         }
 
-        public void UploadInfo(UploadMapInfoReq node)
+        public void UploadInfo(UploadMapInfoReq node, Action<object> compat)
         {
             var isOk = DialogUtils.ShowAskDialog("是否上传配置?");
             if (!isOk) return;
@@ -31,10 +31,19 @@ namespace _7DaysToDieUtils.Model
                 DialogUtils.ShowMessageDialog("上传失败");
                 return;
             }
-            DialogUtils.ShowMessageDialog(result.Message);
+            if (result.Code != 0)
+            {
+                DialogUtils.ShowMessageDialog(result.Message);
+                return;
+            }
+            var isRefresh = DialogUtils.ShowAskDialog("上传成功, 是否更新列表? (该操作可能会产生部分卡顿效果)");
+            if (isRefresh)
+            {
+                Page.Invoke(compat, new object());
+            }
         }
 
-        public void DeleteInfo(string name)
+        public void DeleteInfo(string name, Action<object> compat)
         {
             var isOk = DialogUtils.ShowAskDialog("是否删除配置?");
             if (!isOk) return;
@@ -46,7 +55,16 @@ namespace _7DaysToDieUtils.Model
                 DialogUtils.ShowMessageDialog("删除失败");
                 return;
             }
-            DialogUtils.ShowMessageDialog(result.Message);
+            if (result.Code != 0)
+            {
+                DialogUtils.ShowMessageDialog(result.Message);
+                return;
+            }
+            var isRefresh = DialogUtils.ShowAskDialog("上传成功, 是否更新列表? (该操作可能会产生部分卡顿效果)");
+            if (isRefresh)
+            {
+                Page.Invoke(compat, new object());
+            }
         }
 
         public void UploadImage(Action<string> complete)

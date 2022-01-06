@@ -126,6 +126,7 @@
     <Compile Include="Cache\Config.cs" />
     <Compile Include="Base\BaseEntity.cs" />
     <Compile Include="Entity\DllEntity.cs" />
+    <Compile Include="Entity\GetAllMapInfo.cs" />
     <Compile Include="Entity\GetUserInfoEntity.cs" />
     <Compile Include="Entity\ItemTabEntity.cs" />
     <Compile Include="Entity\DeleteMapInfoReq.cs" />
@@ -154,6 +155,12 @@
     </Compile>
     <Compile Include="View\DllListFrom.Designer.cs">
       <DependentUpon>DllListFrom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\FilterMapInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FilterMapInfoForm.Designer.cs">
+      <DependentUpon>FilterMapInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\HelperForm.cs">
       <SubType>Form</SubType>
@@ -207,6 +214,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="View\DllListFrom.resx">
       <DependentUpon>DllListFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FilterMapInfoForm.resx">
+      <DependentUpon>FilterMapInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\HelperForm.resx">
       <DependentUpon>HelperForm.cs</DependentUpon>

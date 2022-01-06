@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             this.Content_Panel = new Sunny.UI.UITitlePanel();
+            this.Delete_Btn = new Sunny.UI.UIButton();
             this.Title_TextBox = new Sunny.UI.UITextBox();
             this.Type_TextBox = new Sunny.UI.UITextBox();
             this.Submit_Btn = new Sunny.UI.UIButton();
             this.Content_RichText = new Sunny.UI.UIRichTextBox();
             this.uiPanel1 = new Sunny.UI.UIPanel();
             this.Icon_Image = new System.Windows.Forms.PictureBox();
-            this.Delete_Btn = new Sunny.UI.UIButton();
+            this.Search_Btn = new Sunny.UI.UIButton();
             this.Content_Panel.SuspendLayout();
             this.uiPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Icon_Image)).BeginInit();
@@ -43,6 +44,7 @@
             // 
             // Content_Panel
             // 
+            this.Content_Panel.Controls.Add(this.Search_Btn);
             this.Content_Panel.Controls.Add(this.Delete_Btn);
             this.Content_Panel.Controls.Add(this.Title_TextBox);
             this.Content_Panel.Controls.Add(this.Type_TextBox);
@@ -60,6 +62,19 @@
             this.Content_Panel.TabIndex = 4;
             this.Content_Panel.Text = "--";
             this.Content_Panel.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Delete_Btn
+            // 
+            this.Delete_Btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Delete_Btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Delete_Btn.IsScaled = false;
+            this.Delete_Btn.Location = new System.Drawing.Point(10, 461);
+            this.Delete_Btn.MinimumSize = new System.Drawing.Size(1, 1);
+            this.Delete_Btn.Name = "Delete_Btn";
+            this.Delete_Btn.Size = new System.Drawing.Size(160, 39);
+            this.Delete_Btn.TabIndex = 10;
+            this.Delete_Btn.Text = "删除";
+            this.Delete_Btn.Click += new System.EventHandler(this.Delete_Btn_Click);
             // 
             // Title_TextBox
             // 
@@ -84,7 +99,7 @@
             this.Type_TextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.Type_TextBox.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Type_TextBox.IsScaled = false;
-            this.Type_TextBox.Location = new System.Drawing.Point(11, 322);
+            this.Type_TextBox.Location = new System.Drawing.Point(10, 312);
             this.Type_TextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Type_TextBox.Maximum = 2147483647D;
             this.Type_TextBox.Minimum = -2147483648D;
@@ -100,7 +115,7 @@
             this.Submit_Btn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Submit_Btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Submit_Btn.IsScaled = false;
-            this.Submit_Btn.Location = new System.Drawing.Point(9, 383);
+            this.Submit_Btn.Location = new System.Drawing.Point(9, 413);
             this.Submit_Btn.MinimumSize = new System.Drawing.Size(1, 1);
             this.Submit_Btn.Name = "Submit_Btn";
             this.Submit_Btn.Size = new System.Drawing.Size(160, 39);
@@ -151,18 +166,18 @@
             this.Icon_Image.TabStop = false;
             this.Icon_Image.Click += new System.EventHandler(this.Icon_Image_Click);
             // 
-            // Delete_Btn
+            // Search_Btn
             // 
-            this.Delete_Btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Delete_Btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Delete_Btn.IsScaled = false;
-            this.Delete_Btn.Location = new System.Drawing.Point(10, 442);
-            this.Delete_Btn.MinimumSize = new System.Drawing.Size(1, 1);
-            this.Delete_Btn.Name = "Delete_Btn";
-            this.Delete_Btn.Size = new System.Drawing.Size(160, 39);
-            this.Delete_Btn.TabIndex = 10;
-            this.Delete_Btn.Text = "删除";
-            this.Delete_Btn.Click += new System.EventHandler(this.Delete_Btn_Click);
+            this.Search_Btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Search_Btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Search_Btn.IsScaled = false;
+            this.Search_Btn.Location = new System.Drawing.Point(9, 363);
+            this.Search_Btn.MinimumSize = new System.Drawing.Size(1, 1);
+            this.Search_Btn.Name = "Search_Btn";
+            this.Search_Btn.Size = new System.Drawing.Size(160, 39);
+            this.Search_Btn.TabIndex = 11;
+            this.Search_Btn.Text = "搜索";
+            this.Search_Btn.Click += new System.EventHandler(this.Search_Btn_Click);
             // 
             // ItemNodePage
             // 
@@ -189,5 +204,6 @@
         private Sunny.UI.UITextBox Type_TextBox;
         private Sunny.UI.UITextBox Title_TextBox;
         private Sunny.UI.UIButton Delete_Btn;
+        private Sunny.UI.UIButton Search_Btn;
     }
 }

@@ -12,13 +12,18 @@ namespace _7DaysToDieUtils.View
     {
         private readonly ItemNode NodeData;
         private readonly ItemNodeModel Model;
+        private readonly HelperForm HelperForm;
+
+        private readonly Action<GetAllMapInfo> RefreshAction;
 
         private readonly int ParentId = -1;
         private string ImageKey = "temp.jpg";
 
-        public ItemNodePage(ItemNode data, int parentId)
+        public ItemNodePage(HelperForm form, ItemNode data, int parentId, Action<GetAllMapInfo> refresh)
         {
             InitializeComponent();
+            HelperForm = form;
+            RefreshAction = refresh;
             Model = new ItemNodeModel(this);
             NodeData = data;
             ParentId = parentId;
@@ -42,6 +47,7 @@ namespace _7DaysToDieUtils.View
             Content_RichText.Text = NodeData.Content.Replace("\\n", Environment.NewLine);
             Content_RichText.ReadOnly = !canEdit;
 
+            ImageKey = NodeData.ImageKey;
             Icon_Image.LoadAsync(Config.DEFAULT_IMAGE_HEAD + NodeData.ImageKey);
         }
 
@@ -55,7 +61,9 @@ namespace _7DaysToDieUtils.View
                 content = Content_RichText.Text,
                 imageKey = ImageKey
             };
-            Model.UploadInfo(nodeData);
+            Model.UploadInfo(nodeData, (_) => {
+                HelperForm.Invoke(RefreshAction, new GetAllMapInfo());
+            });
         }
 
         private void Icon_Image_Click(object sender, EventArgs e)
@@ -71,7 +79,18 @@ namespace _7DaysToDieUtils.View
 
         private void Delete_Btn_Click(object sender, EventArgs e)
         {
-            Model.DeleteInfo(NodeData.Name);
+            Model.DeleteInfo(NodeData.Name, (_) => {
+                HelperForm.Invoke(RefreshAction, new GetAllMapInfo());
+            });
+        }
+
+        private void Search_Btn_Click(object sender, EventArgs e)
+        {
+            var form = new FilterMapInfoForm(this , (filterObj) =>
+            {
+                HelperForm.Invoke(RefreshAction, filterObj);
+            });
+            form.ShowDialog();
         }
     }
 }

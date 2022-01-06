@@ -19,7 +19,7 @@ namespace _7DaysToDieUtils.View
             _SyncContext = SynchronizationContext.Current;
             Model = new HelperModel(this);
             Header.Hide();
-            RequestMenuInfo();
+            RequestMenuInfo(new GetAllMapInfo());
         }
 
         private void ShowLoading(object obj)
@@ -32,10 +32,10 @@ namespace _7DaysToDieUtils.View
             Loading_Progress.Visible = false;
         }
 
-        private void RequestMenuInfo()
+        private void RequestMenuInfo(GetAllMapInfo req)
         {
             _SyncContext.Post(ShowLoading, null);
-            var thread = new Thread((_) => Model.RequestMenuInfo((object result) =>
+            var thread = new Thread((_) => Model.RequestMenuInfo(req, (object result) =>
             {
                 _SyncContext.Post(HideLoading, null);
                 if (result is MenuInfoEntity)
@@ -55,6 +55,8 @@ namespace _7DaysToDieUtils.View
                 return;
             }
 
+            Aside.ClearAll();
+
             int pageIndex = 999;
 
             foreach (var menu in list)
@@ -62,33 +64,36 @@ namespace _7DaysToDieUtils.View
                 var parent = Aside.CreateNode(menu.MenuName, 61415, 24, ++pageIndex);
                 if (UserInfo.GetInstance().IsAdmin)
                 {
-                    CreateEditPage(parent, ++pageIndex, menu.Id);
-
+                    CreateEditPage(parent, menu.Id, menu.MenuName);
                 };
                 foreach (var nodeData in menu.ItemNode)
                 {
-                    CreateNodePage(parent, nodeData, ++pageIndex, menu.Id);
+                    CreateNodePage(parent, nodeData, menu.Id);
                 }
                 Aside.SelectPage(1000);
             }
         }
 
-        private void CreateEditPage(TreeNode parent, int pageIndex, int parentId)
+        private void CreateEditPage(TreeNode parent, int parentId, string menuName)
         {
             var node = new ItemNode
             {
-                Content = "请添加",
+                Content = "请添加" + menuName,
                 ImageKey = "add.png",
-                Name = "请添加",
-                Type = "请添加"
+                Name = "请添加" + menuName,
+                Type = "请添加" + menuName
             };
-            CreateNodePage(parent, node, pageIndex, parentId);
+            CreateNodePage(parent, node, parentId);
         }
 
-        private void CreateNodePage(TreeNode parent, ItemNode nodeData, int pageIndex, int parentId)
+        private void CreateNodePage(TreeNode parent, ItemNode nodeData, int parentId)
         {
-            var page = new ItemNodePage(nodeData, parentId);
-            var nodePage = Aside.CreateChildNode(parent, AddPage(page, pageIndex));
+            var page = new ItemNodePage(this, nodeData, parentId, (req) =>
+            {
+                RequestMenuInfo(req);
+            });
+            var guid = Model.GetGuid(nodeData.Name);
+            var nodePage = Aside.CreateChildNode(parent, AddPage(page, guid));
             nodePage.Text = nodeData.Name;
         }
     }
