@@ -10,6 +10,7 @@ namespace _7DaysToDieUtils.Cons
         {
             ("旧日支配者主世界: 942943408 (服务器)" , QQ_ROOM_SERVICE_1),
             ("旧日支配者新世界: 636705262 (服务器)" , QQ_ROOM_SERVICE_2),
+            ("三日杀旧日支配者交流群: 325529565 (单机)" , QQ_ROOM_STAND_ALONE_3),
             ("四日杀旧日支配者交流群: 720019691 (单机)" , QQ_ROOM_STAND_ALONE_4),
             ("五日杀旧日支配者交流群: 593011269 (单机)" , QQ_ROOM_STAND_ALONE_5),
             ("六日杀旧日支配者交流群: 758363385 (单机)" , QQ_ROOM_STAND_ALONE_6),
@@ -20,6 +21,7 @@ namespace _7DaysToDieUtils.Cons
 
         public const string QQ_ROOM_SERVICE_1 = "https://qm.qq.com/cgi-bin/qm/qr?k=RL1ALB4BkofHguclgQuonUasZKUORnh1&jump_from=webapi";
         public const string QQ_ROOM_SERVICE_2 = "https://qm.qq.com/cgi-bin/qm/qr?k=WReOPICRNAEGjC00KQ1tMMeIDGlfdXYS&jump_from=webapi";
+        public const string QQ_ROOM_STAND_ALONE_3 = "https://qm.qq.com/cgi-bin/qm/qr?k=7iSxANj102ll7VTCt-gSYAg0SpF3wcC8&jump_from=webapi";
         public const string QQ_ROOM_STAND_ALONE_4 = "https://qm.qq.com/cgi-bin/qm/qr?k=AqE3wul5mo0LLF6a-pIGwOC-rufXZ6QL&jump_from=webapi";
         public const string QQ_ROOM_STAND_ALONE_5 = "https://qm.qq.com/cgi-bin/qm/qr?k=DBg3uxseGPqgAm5TbyZhYJs9rqgHinKT&jump_from=webapi";
         public const string QQ_ROOM_STAND_ALONE_6 = "https://qm.qq.com/cgi-bin/qm/qr?k=kLtUy5oa_sCsF0wrP5mL6tfH5XCCyR7P&jump_from=webapi";

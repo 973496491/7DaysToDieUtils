@@ -419,6 +419,7 @@ namespace _7DaysToDieUtils.View
                 Directory.CreateDirectory(gameModPath);
 
                 string unzipPath = Path.GetDirectoryName(modPath);
+                _SyncContext.Post(ShowLoading, "解压缩 [" + modName + "] 中...");
                 ZipFile.ExtractToDirectory(modPath, unzipPath);
                 // 删除压缩包
                 File.Delete(modPath);
