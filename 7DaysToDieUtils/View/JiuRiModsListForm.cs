@@ -317,7 +317,7 @@ namespace _7DaysToDieUtils.View
             }
             Directory.CreateDirectory(downloadPath);
 
-            _SyncContext.Post(ShowLoading, "正在下载 [" + mod.ModName + "] 中...");
+            _SyncContext.Post(ShowLoading, "正在下载[ " + mod.ModName + "] 中...");
             string fileName = Path.GetFileName(mod.FileName);
             string downloadModPath = downloadPath + mod.FileName;
 
@@ -325,7 +325,7 @@ namespace _7DaysToDieUtils.View
                 mod.Key, downloadPath, fileName,
                 (progress) => _SyncContext.Post(
                     ShowLoading,
-                    "正在下载 [" + mod.ModName + " ]中(" + progress + ")..."
+                    "正在下载[ " + mod.ModName + " ]中(" + progress + ")..."
                 )
             );
 
@@ -349,7 +349,7 @@ namespace _7DaysToDieUtils.View
             }
             Directory.CreateDirectory(downloadPath);
 
-            _SyncContext.Post(ShowLoading, "正在下载 [" + mod.ModName + "] 中...");
+            _SyncContext.Post(ShowLoading, "正在下载[ " + mod.ModName + " ]中...");
             string fileName = Path.GetFileName(mod.FileName);
             string downloadModPath = downloadPath + mod.FileName;
 
@@ -359,7 +359,7 @@ namespace _7DaysToDieUtils.View
                 downloadModPath,
                 (int progress) =>
                 {
-                    _SyncContext.Post(ShowLoading, "正在下载 [" + mod.ModName + "]" + "中(" + progress + "%)...");
+                    _SyncContext.Post(ShowLoading, "正在下载[ " + mod.ModName + " ]中(" + progress + "%)...");
                 },
                 () =>
                 {
