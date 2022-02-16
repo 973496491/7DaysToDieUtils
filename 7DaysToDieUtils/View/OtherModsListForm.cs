@@ -51,6 +51,12 @@ namespace _7DaysToDieUtils.View
             _SyncContext.Post(ShowDialog, "获取Mod列表中...");
 
             var list = QCloudCosUtils.GetInstance().GetObjectList("Mod_Other");
+
+            if (list == null)
+            {
+                return;
+            }
+
             TrasfromListToMods(list.contentsList);
 
             _SyncContext.Post(HideDialog, null);

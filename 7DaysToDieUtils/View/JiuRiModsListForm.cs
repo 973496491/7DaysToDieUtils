@@ -363,8 +363,8 @@ namespace _7DaysToDieUtils.View
                 },
                 () =>
                 {
-                    InstallMod(downloadModPath, mod.ModName);
-                }
+                    InstallMod(downloadModPath, mod.ModName); 
+                 }
             );
         }
 

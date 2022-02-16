@@ -18,13 +18,14 @@ namespace _7DaysToDieUtils.Utils
 
         private static QCloudCosUtils _QCloudCosUtils;
 
-
-        private static readonly string REGION = "ap-shanghai"; //设置一个默认的存储桶地域
-        //"云 API 密钥 ";
-        private static readonly string SECRET_ID = "AKIDOgokTzHMCoCNIxMWQ5WlmZ7RXQ6WjhQu";
-        //"云 API 密钥";
-        private static readonly string SECRET_KEY = "IL9i4D8qLdiYR8bprfEYcUAcpoZ6OTLz";
-        private static readonly long DURATION_SECOND = 600;  //每次请求签名有效时长，单位为秒
+        // 设置一个默认的存储桶地域
+        private static readonly string REGION = "ap-shanghai"; 
+        // "云 API 密钥 ";
+        private static readonly string SECRET_ID = "AKIDJRJvHMAhyyh9KErCI7gyzkERN3RYOyHI";
+        // "云 API 密钥";
+        private static readonly string SECRET_KEY = "lFaeQvAeroUt1sSmpa4IFvKSJtCEzThe";
+        // 每次请求签名有效时长，单位为秒
+        private static readonly long DURATION_SECOND = 6000;  
 
         // 储存空间名
         private static readonly string WORKSPACE_NAME = "jiurizhipeizhe";
@@ -49,13 +50,16 @@ namespace _7DaysToDieUtils.Utils
         public void Init()
         {
             CosXml = new CosXmlServer(
-                InitCosXmlCOnfig(),
+                InitCosXmlConfig(),
                 InitPrivateKey()
             );
         }
 
-        //初始化 CosXmlConfig 
-        private CosXmlConfig InitCosXmlCOnfig()
+        /// <summary>
+        /// 初始化 CosXmlConfig 
+        /// </summary>
+        /// <returns></returns>
+        private CosXmlConfig InitCosXmlConfig()
         {
             return new CosXmlConfig.Builder()
              .IsHttps(true)  //设置默认 HTTPS 请求
@@ -63,7 +67,6 @@ namespace _7DaysToDieUtils.Utils
              .SetDebugLog(true)  //显示日志
              .Build();  //创建 CosXmlConfig 对象
         }
-
 
         /// <summary>
         /// 初始化密钥
@@ -94,13 +97,15 @@ namespace _7DaysToDieUtils.Utils
             }
             catch (COSXML.CosException.CosClientException clientEx)
             {
-                //请求失败
                 Console.WriteLine("CosClientException: " + clientEx);
             }
             catch (COSXML.CosException.CosServerException serverEx)
             {
-                //请求失败
                 Console.WriteLine("CosServerException: " + serverEx.GetInfo());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception: " + ex);
             }
             return null;
         }
@@ -119,10 +124,8 @@ namespace _7DaysToDieUtils.Utils
         {
             // 初始化 TransferConfig
             TransferConfig transferConfig = new TransferConfig();
-
             // 初始化 TransferManager
             TransferManager transferManager = new TransferManager(CosXml, transferConfig);
-
             // 下载对象
             COSXMLDownloadTask downloadTask = new COSXMLDownloadTask(
                 BUCKET, cosPath, savePath, fileName
@@ -158,18 +161,15 @@ namespace _7DaysToDieUtils.Utils
                 DeleteObjectRequest request = new DeleteObjectRequest(BUCKET, key);
                 //执行请求
                 DeleteObjectResult result = CosXml.DeleteObject(request);
-                //请求成功
                 Console.WriteLine(result.GetResultInfo());
                 return true;
             }
             catch (COSXML.CosException.CosClientException clientEx)
             {
-                //请求失败
                 Console.WriteLine("CosClientException: " + clientEx);
             }
             catch (COSXML.CosException.CosServerException serverEx)
             {
-                //请求失败
                 Console.WriteLine("CosServerException: " + serverEx.GetInfo());
             }
             return false;
