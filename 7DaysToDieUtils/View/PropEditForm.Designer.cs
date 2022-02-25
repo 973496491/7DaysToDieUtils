@@ -33,6 +33,7 @@
             this.uiPanel1 = new Sunny.UI.UIPanel();
             this.Icon_Image = new System.Windows.Forms.PictureBox();
             this.Type_Text = new Sunny.UI.UITextBox();
+            this.Submit_Btn = new Sunny.UI.UIButton();
             this.uiPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Icon_Image)).BeginInit();
             this.SuspendLayout();
@@ -95,6 +96,7 @@
             this.Icon_Image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Icon_Image.TabIndex = 0;
             this.Icon_Image.TabStop = false;
+            this.Icon_Image.Click += new System.EventHandler(this.Icon_Image_Click);
             // 
             // Type_Text
             // 
@@ -113,11 +115,26 @@
             this.Type_Text.Text = "类型";
             this.Type_Text.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // Submit_Btn
+            // 
+            this.Submit_Btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Submit_Btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Submit_Btn.IsScaled = false;
+            this.Submit_Btn.Location = new System.Drawing.Point(10, 411);
+            this.Submit_Btn.MinimumSize = new System.Drawing.Size(1, 1);
+            this.Submit_Btn.Name = "Submit_Btn";
+            this.Submit_Btn.Size = new System.Drawing.Size(160, 40);
+            this.Submit_Btn.TabIndex = 13;
+            this.Submit_Btn.Text = "提交";
+            this.Submit_Btn.Visible = false;
+            this.Submit_Btn.Click += new System.EventHandler(this.Submit_Btn_Click);
+            // 
             // PropEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 550);
+            this.Controls.Add(this.Submit_Btn);
             this.Controls.Add(this.Type_Text);
             this.Controls.Add(this.uiPanel1);
             this.Controls.Add(this.Content_RichText);
@@ -139,5 +156,6 @@
         private Sunny.UI.UIPanel uiPanel1;
         private System.Windows.Forms.PictureBox Icon_Image;
         private Sunny.UI.UITextBox Type_Text;
+        private Sunny.UI.UIButton Submit_Btn;
     }
 }

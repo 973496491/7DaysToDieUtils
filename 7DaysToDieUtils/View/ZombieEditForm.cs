@@ -5,6 +5,7 @@ using _7DaysToDieUtils.Entity.req;
 using _7DaysToDieUtils.Utils;
 using Newtonsoft.Json;
 using Sunny.UI;
+using System;
 using System.Drawing.Imaging;
 using System.IO;
 
@@ -12,11 +13,18 @@ namespace _7DaysToDieUtils.View
 {
     public partial class ZombieEditForm : UIForm
     {
-        private string ImageKey = "add.png";
+        private readonly UIForm Form;
+        private readonly Action AddAction;
 
-        public ZombieEditForm(int id)
+        private string ImageKey = "add.png";
+        private int _Id = -1;
+
+        public ZombieEditForm(UIForm form, int id, Action addAction)
         {
             InitializeComponent();
+            Form = form;
+            AddAction = addAction;
+            _Id = id;
 
             if (id == -1)
             {
@@ -68,7 +76,7 @@ namespace _7DaysToDieUtils.View
             DialogUtils.ShowMessageDialog("获取古神信息失败!");
         }
 
-        private void Submit_Btn_Click(object sender, System.EventArgs e)
+        private void Submit_Btn_Click(object sender, EventArgs e)
         {
             var req = new AddZombieInfoReq
             {
@@ -81,7 +89,7 @@ namespace _7DaysToDieUtils.View
             var result = HttpApi.Request<object>(ApiConst.API_ADD_ZOMBIE_INFO, json);
             if (result == null)
             {
-                DialogUtils.ShowMessageDialog("古神信息上传失败");
+                ShowSubmitDialog(false);
                 return;
             }
             if (result.Code != 0)
@@ -89,7 +97,26 @@ namespace _7DaysToDieUtils.View
                 DialogUtils.ShowMessageDialog(result.Message);
                 return;
             }
-            DialogUtils.ShowMessageDialog("古神图鉴上传成功!");
+            ShowSubmitDialog(true);
+            if (_Id == -1)
+            {
+                Close();
+                Form.Invoke(AddAction);
+            }
+        }
+
+        private void ShowSubmitDialog(bool isSuc)
+        {
+            string statusStr;
+            if (isSuc)
+                statusStr = "成功";
+            else
+                statusStr = "失败";
+
+            if (_Id == -1)
+                DialogUtils.ShowMessageDialog("古神图鉴上传" + statusStr);
+            else
+                DialogUtils.ShowMessageDialog("古神图鉴更新" + statusStr);
         }
 
         private void Icon_Image_Click(object sender, System.EventArgs e)

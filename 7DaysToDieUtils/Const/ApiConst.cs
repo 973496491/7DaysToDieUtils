@@ -33,6 +33,11 @@
         public static readonly string API_ADD_ZOMBIE_INFO = "/api/illustratedInfo/insertZombieInfo";
 
         /// <summary>
+        /// 删除一条古神信息
+        /// </summary>
+        public static readonly string API_DELETE_ZOMBIE = "/api/illustratedInfo/deleteZombie";
+
+        /// <summary>
         /// 获取道具列表
         /// </summary>
         public static readonly string API_PROP_LIST = "/api/illustratedInfo/getAllPropList";
@@ -41,6 +46,16 @@
         /// 获取道具详情
         /// </summary>
         public static readonly string API_PROP_INFO = "/api/illustratedInfo/getPropInfo";
+
+        /// <summary>
+        /// 添加一条道具信息
+        /// </summary>
+        public static readonly string API_ADD_PROP_INFO = "/api/illustratedInfo/insertPropInfo";
+
+        /// <summary>
+        /// 删除一条道具信息
+        /// </summary>
+        public static readonly string API_DELETE_PROP = "/api/illustratedInfo/deleteProp";
 
         /// <summary>
         /// 扣除下载次数

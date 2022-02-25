@@ -128,7 +128,10 @@
     <Compile Include="Entity\DllEntity.cs" />
     <Compile Include="Entity\GetAllMapInfo.cs" />
     <Compile Include="Entity\GetUserInfoEntity.cs" />
+    <Compile Include="Entity\req\AddPropInfoReq.cs" />
     <Compile Include="Entity\req\AddZombieInfoReq.cs" />
+    <Compile Include="Entity\req\DeletePropReq.cs" />
+    <Compile Include="Entity\req\DeleteZombieReq.cs" />
     <Compile Include="Entity\req\GetPropListReq.cs" />
     <Compile Include="Entity\req\GetPropInfoReq.cs" />
     <Compile Include="Entity\req\GetZombieListReq.cs" />
@@ -250,6 +253,7 @@
     <Compile Include="View\PropEditForm.Designer.cs">
       <DependentUpon>PropEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\UIFrom.cs" />
     <Compile Include="View\ZombieEditForm.cs">
       <SubType>Form</SubType>
     </Compile>

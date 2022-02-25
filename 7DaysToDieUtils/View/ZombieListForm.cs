@@ -1,5 +1,6 @@
 ﻿using _7DaysToDieUtils.Const;
 using _7DaysToDieUtils.Entity;
+using _7DaysToDieUtils.Entity.req;
 using _7DaysToDieUtils.Utils;
 using Newtonsoft.Json;
 using Sunny.UI;
@@ -151,20 +152,42 @@ namespace _7DaysToDieUtils.View
 
         private void AddZombie()
         {
-            var form = new ZombieEditForm(-1);
+            var form = new ZombieEditForm(this, -1, () =>
+            {
+                PageIndex = 1;
+                HasNextPage = true;
+                Zombie_GridView.ClearRows();
+                GetZombieList();
+            });
             form.ShowDialog();
         }
 
         private void EditZombie(int id)
         {
-            var form = new ZombieEditForm(id);
+            var form = new ZombieEditForm(this, id, () => { });
             form.ShowDialog();
         }
 
         private void DeleteZombie(int id)
         {
-            var form = new ZombieDetailForm(id);
-            form.ShowDialog();
+            _SyncContext.Post(ShowLoading, "");
+            var req = new DeleteZombieReq
+            {
+                id = id
+            };
+            var json = JsonConvert.SerializeObject(req);
+            var result = HttpApi.Request<object>(ApiConst.API_DELETE_ZOMBIE, json);
+            _SyncContext.Post(HideLoading, "");
+            if (result == null)
+            {
+                DialogUtils.ShowMessageDialog("删除失败!");
+                return;
+            }
+            DialogUtils.ShowMessageDialog(result.Message);
+
+            PageIndex = 1;
+            HasNextPage = true;
+            GetZombieList();
         }
     }
 }

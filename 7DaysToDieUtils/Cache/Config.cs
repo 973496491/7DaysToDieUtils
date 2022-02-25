@@ -3,7 +3,7 @@
     internal class Config
     {
 
-        public readonly static bool IS_DEBUG = true;
+        public readonly static bool IS_DEBUG = false;
 
         public readonly static string BASE_URL_LOCAL = "http://localhost:7777";
 

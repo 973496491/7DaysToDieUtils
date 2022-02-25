@@ -19,7 +19,7 @@ namespace _7DaysToDieUtils.View
 
         private void InitZombieInfo()
         {
-            var req = new GetPropInfoReq
+            var req = new GetZombieInfoReq
             {
                 id = PropId,
             };
@@ -35,10 +35,10 @@ namespace _7DaysToDieUtils.View
                 ShowNothingDialog();
                 return;
             }
-            SetPropInfo(result.Data);
+            SetZombieInfo(result.Data);
         }
 
-        private void SetPropInfo(PropInfoEntity entity)
+        private void SetZombieInfo(PropInfoEntity entity)
         {
             Icon_Image.LoadAsync(Config.DEFAULT_IMAGE_HEAD + entity.imageKey);
 
