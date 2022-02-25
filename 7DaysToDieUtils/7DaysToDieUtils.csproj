@@ -128,16 +128,23 @@
     <Compile Include="Entity\DllEntity.cs" />
     <Compile Include="Entity\GetAllMapInfo.cs" />
     <Compile Include="Entity\GetUserInfoEntity.cs" />
+    <Compile Include="Entity\req\AddZombieInfoReq.cs" />
+    <Compile Include="Entity\req\GetPropListReq.cs" />
+    <Compile Include="Entity\req\GetPropInfoReq.cs" />
+    <Compile Include="Entity\req\GetZombieListReq.cs" />
+    <Compile Include="Entity\req\GetZombieInfoReq.cs" />
     <Compile Include="Entity\ItemTabEntity.cs" />
-    <Compile Include="Entity\DeleteMapInfoReq.cs" />
-    <Compile Include="Entity\LoginReq.cs" />
+    <Compile Include="Entity\req\DeleteMapInfoReq.cs" />
+    <Compile Include="Entity\req\LoginReq.cs" />
     <Compile Include="Entity\ModEntity.cs" />
     <Compile Include="Entity\ConfigEntity.cs" />
     <Compile Include="Entity\SubtractDownloadCountEntity.cs" />
-    <Compile Include="Entity\UploadImageReq.cs" />
-    <Compile Include="Entity\UploadMapInfoReq.cs" />
+    <Compile Include="Entity\req\UploadImageReq.cs" />
+    <Compile Include="Entity\req\UploadMapInfoReq.cs" />
     <Compile Include="Entity\UserInfoEntity.cs" />
-    <Compile Include="Entity\UserTokenResp.cs" />
+    <Compile Include="Entity\resp\UserTokenResp.cs" />
+    <Compile Include="Entity\PropInfoEntity.cs" />
+    <Compile Include="Entity\ZombieInfoEntity.cs" />
     <Compile Include="Model\DllListModel.cs" />
     <Compile Include="Model\HelperModel.cs" />
     <Compile Include="Model\ItemNodeModel.cs" />
@@ -150,11 +157,18 @@
     <Compile Include="Http\HttpApi.cs" />
     <Compile Include="Http\QCloudCosUtils.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
+    <Compile Include="Utils\ViewUtils.cs" />
     <Compile Include="View\DllListFrom.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\DllListFrom.Designer.cs">
       <DependentUpon>DllListFrom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\SearchListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\SearchListForm.Designer.cs">
+      <DependentUpon>SearchListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\FilterMapInfoForm.cs">
       <SubType>Form</SubType>
@@ -167,6 +181,12 @@
     </Compile>
     <Compile Include="View\HelperForm.Designer.cs">
       <DependentUpon>HelperForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\HelperItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\HelperItemForm.Designer.cs">
+      <DependentUpon>HelperItemForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\ItemNodePage.cs">
       <SubType>Form</SubType>
@@ -185,6 +205,12 @@
     </Compile>
     <Compile Include="View\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\MoreListOptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\MoreListOptionForm.Designer.cs">
+      <DependentUpon>MoreListOptionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\OtherModsListForm.cs">
       <SubType>Form</SubType>
@@ -212,14 +238,56 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\PropDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\PropDetailForm.Designer.cs">
+      <DependentUpon>PropDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\PropEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\PropEditForm.Designer.cs">
+      <DependentUpon>PropEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ZombieEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ZombieEditForm.Designer.cs">
+      <DependentUpon>ZombieEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ZombieDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ZombieDetailForm.Designer.cs">
+      <DependentUpon>ZombieDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\PropListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\PropListForm.Designer.cs">
+      <DependentUpon>PropListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ZombieListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ZombieListForm.Designer.cs">
+      <DependentUpon>ZombieListForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="View\DllListFrom.resx">
       <DependentUpon>DllListFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\SearchListForm.resx">
+      <DependentUpon>SearchListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\FilterMapInfoForm.resx">
       <DependentUpon>FilterMapInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\HelperForm.resx">
       <DependentUpon>HelperForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\HelperItemForm.resx">
+      <DependentUpon>HelperItemForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ItemNodePage.resx">
       <DependentUpon>ItemNodePage.cs</DependentUpon>
@@ -229,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\MoreListOptionForm.resx">
+      <DependentUpon>MoreListOptionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\OtherModsListForm.resx">
       <DependentUpon>OtherModsListForm.cs</DependentUpon>
@@ -246,6 +317,24 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\PropDetailForm.resx">
+      <DependentUpon>PropDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\PropEditForm.resx">
+      <DependentUpon>PropEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ZombieEditForm.resx">
+      <DependentUpon>ZombieEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ZombieDetailForm.resx">
+      <DependentUpon>ZombieDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\PropListForm.resx">
+      <DependentUpon>PropListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ZombieListForm.resx">
+      <DependentUpon>ZombieListForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="7DaysToDieUtils_TemporaryKey.pfx" />
     <None Include="packages.config" />
@@ -270,6 +359,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon_Logo.ico" />
+    <None Include="Resources\Defalut_Icon.png" />
     <None Include="Resources\Icon_Helper.png" />
     <None Include="Resources\Icon_Enter_QQ_Rooms.png" />
     <None Include="Resources\Icon_InstallLargeMod.png" />

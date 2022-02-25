@@ -73,6 +73,16 @@ namespace _7DaysToDieUtils.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        public static System.Drawing.Bitmap Defalut_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Defalut_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         public static System.Drawing.Bitmap Icon_Background {
             get {
                 object obj = ResourceManager.GetObject("Icon_Background", resourceCulture);

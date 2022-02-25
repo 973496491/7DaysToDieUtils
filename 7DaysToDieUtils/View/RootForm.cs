@@ -321,7 +321,7 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void Helper_Btn_Click(object sender, EventArgs e)
         {
-            var form = new HelperForm();
+            var form = new HelperItemForm();
             form.ShowDialog();
         }
     }
