@@ -44,6 +44,8 @@ namespace _7DaysToDieUtils.View
 
         private void InitZombieInfo(int id)
         {
+            Submit_Btn.Visible = UserInfo.GetInstance().IsAdmin;
+
             var req = new GetZombieInfoReq
             {
                 id = id,

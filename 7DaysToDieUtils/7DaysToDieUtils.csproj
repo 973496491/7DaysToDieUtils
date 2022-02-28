@@ -253,7 +253,6 @@
     <Compile Include="View\PropEditForm.Designer.cs">
       <DependentUpon>PropEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\UIFrom.cs" />
     <Compile Include="View\ZombieEditForm.cs">
       <SubType>Form</SubType>
     </Compile>

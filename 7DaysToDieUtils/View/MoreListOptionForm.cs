@@ -1,5 +1,6 @@
 ﻿using _7DaysToDieUtils.Cache;
 using _7DaysToDieUtils.Entity;
+using _7DaysToDieUtils.Utils;
 using Sunny.UI;
 using System;
 
@@ -33,14 +34,6 @@ namespace _7DaysToDieUtils.View
             AddAction = addAction;
             EditAction = editAction;
             DeleteAction = deleteAction;
-            InitButtonStatus();
-        }
-
-        private void InitButtonStatus()
-        {
-            Add_Btn.Enabled = CanEdit;
-            Edit_Btn.Enabled = CanEdit;
-            Delete_Btn.Enabled = CanEdit;
         }
 
         private void Search_Btn_Click(object sender, EventArgs e)
@@ -55,20 +48,40 @@ namespace _7DaysToDieUtils.View
 
         private void Add_Btn_Click(object sender, EventArgs e)
         {
-            Form.Invoke(AddAction, null);
-            Close();
+            if (UserInfo.GetInstance().IsAdmin)
+            {
+                Form.Invoke(AddAction, null);
+                Close();
+            } else
+            {
+                DialogUtils.ShowMessageDialog("权限被拒: 您的账户权限不足, 无法进行添加.");
+            }
         }
 
         private void Edit_Btn_Click(object sender, EventArgs e)
         {
-            Form.Invoke(EditAction, _Id);
-            Close();
+            if (UserInfo.GetInstance().IsAdmin)
+            {
+                Form.Invoke(EditAction, _Id);
+                Close();
+            }
+            else
+            {
+                DialogUtils.ShowMessageDialog("权限被拒: 您的账户权限不足, 无法进行编辑.");
+            }
         }
 
         private void Delete_Btn_Click(object sender, EventArgs e)
         {
-            Form.Invoke(DeleteAction, _Id);
-            Close();
+            if (UserInfo.GetInstance().IsAdmin)
+            {
+                Form.Invoke(DeleteAction, _Id);
+                Close();
+            }
+            else
+            {
+                DialogUtils.ShowMessageDialog("权限被拒: 您的账户权限不足, 无法进行删除.");
+            }
         }
     }
 }

@@ -17,7 +17,7 @@ namespace _7DaysToDieUtils.View
         private readonly Action AddAction;
 
         private string ImageKey = "add.png";
-        private int _Id = -1;
+        private readonly int _Id = -1;
 
         public PropEditForm(UIForm form, int id, Action addAction)
         {
@@ -44,6 +44,8 @@ namespace _7DaysToDieUtils.View
 
         private void InitPropInfo(int id)
         {
+            Submit_Btn.Visible = UserInfo.GetInstance().IsAdmin;
+
             var req = new GetPropInfoReq
             {
                 id = id,
@@ -94,7 +96,7 @@ namespace _7DaysToDieUtils.View
             }
             if (result.Code != 0)
             {
-                DialogUtils.ShowMessageDialog(result.Message);
+                DialogUtils.ShowNetErrorDialog(result);
                 return;
             }
             ShowSubmitDialog(true);
