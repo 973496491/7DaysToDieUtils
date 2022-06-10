@@ -122,6 +122,7 @@ namespace _7DaysToDieUtils.View
         {
             if (e.Button == MouseButtons.Right)
             {
+                if (e.RowIndex < 0) return;
                 var zombieId = Zombie_GridView.Rows[e.RowIndex].Tag;
                 var optionForm = new MoreListOptionForm(
                     this,
@@ -184,7 +185,7 @@ namespace _7DaysToDieUtils.View
                 return;
             }
             DialogUtils.ShowMessageDialog(result.Message);
-
+            Zombie_GridView.ClearRows();
             PageIndex = 1;
             HasNextPage = true;
             GetZombieList();

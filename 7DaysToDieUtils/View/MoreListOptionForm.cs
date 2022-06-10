@@ -34,6 +34,14 @@ namespace _7DaysToDieUtils.View
             AddAction = addAction;
             EditAction = editAction;
             DeleteAction = deleteAction;
+            Init_BtnStatus();
+        }
+
+        private void Init_BtnStatus()
+        {
+            Add_Btn.Enabled = CanEdit;
+            Edit_Btn.Enabled = CanEdit;
+            Delete_Btn.Enabled = CanEdit;
         }
 
         private void Search_Btn_Click(object sender, EventArgs e)
@@ -48,7 +56,7 @@ namespace _7DaysToDieUtils.View
 
         private void Add_Btn_Click(object sender, EventArgs e)
         {
-            if (UserInfo.GetInstance().IsAdmin)
+            if (CanEdit)
             {
                 Form.Invoke(AddAction, null);
                 Close();
@@ -60,7 +68,7 @@ namespace _7DaysToDieUtils.View
 
         private void Edit_Btn_Click(object sender, EventArgs e)
         {
-            if (UserInfo.GetInstance().IsAdmin)
+            if (CanEdit)
             {
                 Form.Invoke(EditAction, _Id);
                 Close();
@@ -73,7 +81,7 @@ namespace _7DaysToDieUtils.View
 
         private void Delete_Btn_Click(object sender, EventArgs e)
         {
-            if (UserInfo.GetInstance().IsAdmin)
+            if (CanEdit)
             {
                 Form.Invoke(DeleteAction, _Id);
                 Close();

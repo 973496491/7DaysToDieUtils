@@ -184,7 +184,7 @@ namespace _7DaysToDieUtils.View
                 return;
             }
             DialogUtils.ShowMessageDialog(result.Message);
-
+            Prop_GridView.ClearRows();
             PageIndex = 1;
             HasNextPage = true;
             GetPropList();

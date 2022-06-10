@@ -67,8 +67,8 @@ namespace _7DaysToDieUtils.View
 
         private void SetZombieInfo(ZombieInfoEntity entity)
         {
-            Name_Text.Text = entity.type;
-            Type_Text.Text = entity.name;
+            Name_Text.Text = entity.name;
+            Type_Text.Text = entity.type;
             Content_RichText.Text = entity.content;
             Icon_Image.LoadAsync(Config.DEFAULT_IMAGE_HEAD + entity.imageKey);
         }
