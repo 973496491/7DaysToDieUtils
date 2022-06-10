@@ -192,8 +192,27 @@ namespace _7DaysToDieUtils
         /// <param name="e"></param>
         private void InstallJiuRi_Btn_Click(object sender, EventArgs e)
         {
-            var modList = new JiuriModsListForm();
-            modList.ShowDialog();
+            ShowDialog_InstallType();
+        }
+
+        /// <summary>
+        /// 选择安装模式
+        /// </summary>
+        private void ShowDialog_InstallType()
+        {
+            var isOk = DialogUtils.ShowAskDialog("是否在线安装模组? 选择 [确定] 从线上安装, 选择 [取消] 从本地安装.");
+            if (isOk)
+            {
+                // 在线安装
+                var modList = new JiuriModsListForm();
+                modList.ShowDialog();
+            }
+            else
+            {
+                // 本地安装
+                _SyncContext.Post(ShowProgress, null);
+                RootModel.Install_LocalMod((progress) => _SyncContext.Post(HideProgress, null));
+            }
         }
 
         /// <summary>

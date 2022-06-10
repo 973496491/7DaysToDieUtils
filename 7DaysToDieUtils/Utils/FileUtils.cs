@@ -155,6 +155,27 @@ namespace _7DaysToDieUtils
         }
 
         /// <summary>
+        /// 不包含Root目录复制子文件
+        /// </summary>
+        /// <param name="sourcePath"></param>
+        /// <param name="destPath"></param>
+        public static void CopyDirectoryNoHasRoot(string sourcePath, string destPath)
+        {
+            string[] files = Directory.GetFileSystemEntries(sourcePath);
+            foreach (string file in files)
+            {
+                if (Directory.Exists(file))
+                {
+                    CopyDirectory(file, destPath);
+                }
+                else
+                {
+                    File.Copy(file, Path.Combine(destPath, Path.GetFileName(file)), true);
+                }
+            }
+        }
+
+        /// <summary>
         /// 删除文件夹
         /// </summary>
         /// <param name="path"></param>

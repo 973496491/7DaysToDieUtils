@@ -153,7 +153,7 @@ namespace _7DaysToDieUtils
             this.Loading_Progress.Name = "Loading_Progress";
             this.Loading_Progress.Size = new System.Drawing.Size(76, 113);
             this.Loading_Progress.TabIndex = 10;
-            this.Loading_Progress.Text = "uiProgressIndicator1";
+            this.Loading_Progress.Text = "123";
             this.Loading_Progress.Visible = false;
             // 
             // Other_Btn
