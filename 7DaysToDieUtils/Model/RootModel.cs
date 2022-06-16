@@ -91,9 +91,9 @@ namespace _7DaysToDieUtils.Model
             if (isOk)
             {
                 var configEntity = DataUtils.LoadConfig();
-                /*FileUtils.DeleteDirectory(configEntity.GamePath + "\\Mods");
+                FileUtils.DeleteDirectory(configEntity.GamePath + "\\Mods");
                 FileUtils.DeleteDirectory(configEntity.GamePath + "\\Data\\Worlds");
-                File.Delete(configEntity.GamePath + "\\7DaysToDie_Data\\Managed\\Assembly-CSharp.dll");*/
+                File.Delete(configEntity.GamePath + "\\7DaysToDie_Data\\Managed\\Assembly-CSharp.dll");
 
                 FileUtils.CopyDirectoryNoHasRoot(unzipModPath, configEntity.GamePath);
             }
